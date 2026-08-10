@@ -7,6 +7,7 @@
    [data-theme="dark"] below overrides the theme-able subset.
    ============================================================ */
 :root {
+  color-scheme: light;
   --primary: #6366f1;
   --primary-light: #4f46e5;
   --primary-dark: #4338ca;
@@ -69,6 +70,7 @@
    tier — no current element maps to it, so no dead var was added.)
    ============================================================ */
 [data-theme="dark"] {
+  color-scheme: dark;
   --primary: #7c5cff;
   --primary-light: #9b87ff;
   --primary-dark: #6b4fe0;
@@ -130,6 +132,7 @@
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     overflow-x: hidden;
+    background-color: var(--bg-dark);
   }
 
   body {

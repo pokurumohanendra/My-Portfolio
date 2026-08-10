@@ -10,24 +10,32 @@ import { LogoMark } from "../shared/Logo";
 
 const navLinks = [
   { id: "about", label: "About" },
+  { id: "education", label: "Education" },
   { id: "skills", label: "Skills" },
   { id: "projects", label: "Projects" },
   { id: "journey", label: "Journey" },
   { id: "contact", label: "Contact" },
 ];
 
+// Distance (px) over which the header chrome fades from transparent to
+// fully solid — gives a gradual reveal instead of snapping at a threshold.
+const HEADER_FADE_DISTANCE = 80;
+
 export default function Navbar() {
-  const [scrolled, setScrolled] = useState(false);
+  const [scrollY, setScrollY] = useState(0);
   const [mobileOpen, setMobileOpen] = useState(false);
   const activeSection = useScrollSpy(navLinks.map((l) => l.id));
   const progress = useScrollProgress();
   const { isDark, toggleTheme } = useTheme();
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 20);
+    const onScroll = () => setScrollY(window.scrollY);
+    onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
+
+  const headerProgress = Math.min(scrollY / HEADER_FADE_DISTANCE, 1);
 
   const scrollTo = (id) => {
     document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
@@ -54,12 +62,24 @@ export default function Navbar() {
         initial={{ y: -80, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.6, ease: [0.4, 0, 0.2, 1] }}
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-          scrolled ? "glass shadow-lg" : "bg-transparent"
-        }`}
-        style={scrolled ? { borderBottom: "1px solid var(--border-dark)" } : {}}
+        className="fixed top-0 left-0 right-0 z-50"
       >
-        <div className="container-custom">
+        {/* Chrome backdrop — fades in continuously with scroll instead of
+            snapping at a threshold; kept separate from the nav content
+            below so links/logo stay fully opaque at all scroll depths. */}
+        <div
+          className="absolute inset-0 pointer-events-none"
+          style={{
+            background: "var(--glass-bg)",
+            backdropFilter: "blur(20px)",
+            WebkitBackdropFilter: "blur(20px)",
+            borderBottom: "1px solid var(--border-dark)",
+            boxShadow: "var(--shadow-card)",
+            opacity: headerProgress,
+            transition: "opacity 0.15s linear",
+          }}
+        />
+        <div className="container-custom relative">
           <nav className="flex items-center justify-between h-16">
             {/* Logo */}
             <button

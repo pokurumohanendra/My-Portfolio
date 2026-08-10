@@ -6,6 +6,7 @@ import Hero from "../components/sections/Hero";
 
 // Lazy load below-fold sections for performance
 const About = lazy(() => import("../components/sections/About"));
+const Education = lazy(() => import("../components/sections/Education"));
 const Skills = lazy(() => import("../components/sections/Skills"));
 const Projects = lazy(() => import("../components/sections/Projects"));
 const Journey = lazy(() => import("../components/sections/Journey"));
@@ -30,6 +31,9 @@ export default function Home() {
         <Hero />
         <Suspense fallback={<SectionSkeleton />}>
           <About />
+        </Suspense>
+        <Suspense fallback={<SectionSkeleton />}>
+          <Education />
         </Suspense>
         <Suspense fallback={<SectionSkeleton />}>
           <Skills />

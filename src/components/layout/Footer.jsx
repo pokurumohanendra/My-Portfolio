@@ -17,10 +17,8 @@ export default function Footer() {
 
   return (
     <footer
-      className="border-t"
       style={{
         background: "var(--bg-dark-surface)",
-        borderColor: "var(--border-dark)",
       }}
     >
       <div className="container-custom py-12">
@@ -90,10 +88,7 @@ export default function Footer() {
         {/* Bottom bar */}
         <div
           className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-3 text-sm"
-          style={{
-            borderTop: "1px solid var(--border-dark)",
-            color: "var(--text-muted)",
-          }}
+          style={{ color: "var(--text-muted)" }}
         >
           <p>© {year} {siteConfig.name}. All rights reserved.</p>
           <p className="flex items-center gap-1.5">

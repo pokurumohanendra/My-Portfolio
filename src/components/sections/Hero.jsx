@@ -1,13 +1,8 @@
 import { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
-import { FaGithub, FaLinkedin, FaDownload, FaArrowRight } from "react-icons/fa";
-import { HiSparkles } from "react-icons/hi2";
+import { FaDownload, FaArrowRight } from "react-icons/fa";
 import { siteConfig } from "../../config/site.config";
-import {
-  fadeInUp,
-  fadeInDown,
-  staggerContainer,
-} from "../../animations/variants";
+import { fadeInUp, fadeInDown, staggerContainer } from "../../animations/variants";
 
 const ROLES = [
   "Full Stack Developer",
@@ -120,10 +115,27 @@ function ParticleBg() {
   );
 }
 
-const socialLinks = [
-  { Icon: FaGithub, href: siteConfig.social.github, label: "GitHub" },
-  { Icon: FaLinkedin, href: siteConfig.social.linkedin, label: "LinkedIn" },
-];
+function AvailabilityBadge() {
+  if (!siteConfig.availableForWork) return null;
+
+  return (
+    <motion.div variants={fadeInDown} className="mb-8 flex justify-center">
+      <span className="badge-pill inline-flex items-center gap-2 text-xs font-mono font-medium px-4 py-2 rounded-full border">
+        <span className="relative flex h-2 w-2">
+          <span
+            className="absolute inline-flex h-full w-full animate-ping rounded-full opacity-75"
+            style={{ background: "#22c55e" }}
+          />
+          <span
+            className="relative inline-flex h-2 w-2 rounded-full"
+            style={{ background: "#22c55e" }}
+          />
+        </span>
+        {siteConfig.availabilityMessage}
+      </span>
+    </motion.div>
+  );
+}
 
 export default function Hero() {
   const scrollToProjects = () =>
@@ -134,7 +146,7 @@ export default function Hero() {
   return (
     <section
       id="hero"
-      className="relative min-h-screen flex items-center justify-center overflow-hidden pt-24 sm:pt-28"
+      className="relative min-h-screen flex items-center justify-center overflow-hidden pt-24 pb-20 sm:pt-28 sm:pb-24"
       style={{ background: "var(--bg-dark)" }}
     >
       {/* Ambient background effects */}
@@ -160,16 +172,7 @@ export default function Hero() {
           animate="visible"
           className="max-w-4xl mx-auto text-center"
         >
-          {/* Availability badge */}
-          <motion.div
-            variants={fadeInDown}
-            className="mb-8 flex justify-center"
-          >
-            {/* <span className="badge-pill inline-flex items-center gap-2 text-xs font-mono font-medium px-4 py-2 rounded-full border">
-              <HiSparkles size={14} />
-              Open to new opportunitiesss
-            </span> */}
-          </motion.div>
+          <AvailabilityBadge />
 
           {/* Greeting */}
           <motion.p
@@ -206,100 +209,38 @@ export default function Hero() {
             {siteConfig.bio}
           </motion.p>
 
-          {/* Primary actions + social links */}
+          {/* Primary actions */}
           <motion.div
             variants={fadeInUp}
-            className="flex flex-col items-center gap-10"
+            className="flex flex-wrap items-center justify-center gap-4"
           >
-            {/* CTA row */}
-            <div className="flex flex-wrap items-center justify-center gap-4">
-              <motion.button
-                whileHover={{ scale: 1.04 }}
-                whileTap={{ scale: 0.97 }}
-                onClick={scrollToProjects}
-                className="btn-primary flex items-center justify-center gap-2 min-w-[10.5rem] px-7 py-3.5 rounded-xl font-semibold text-sm"
-              >
-                View Projects <FaArrowRight size={13} />
-              </motion.button>
+            <motion.button
+              whileHover={{ scale: 1.04 }}
+              whileTap={{ scale: 0.97 }}
+              onClick={scrollToProjects}
+              className="btn-primary flex items-center justify-center gap-2 min-w-[10.5rem] px-7 py-3.5 rounded-xl font-semibold text-sm"
+            >
+              View Projects <FaArrowRight size={13} />
+            </motion.button>
 
-              <motion.a
-                whileHover={{ scale: 1.04 }}
-                whileTap={{ scale: 0.97 }}
-                href={siteConfig.resumeUrl}
-                download
-                className="btn-outline flex items-center justify-center gap-2 min-w-[10.5rem] px-7 py-3.5 rounded-xl font-semibold text-sm border"
-              >
-                <FaDownload size={13} /> Download CV
-              </motion.a>
+            <motion.a
+              whileHover={{ scale: 1.04 }}
+              whileTap={{ scale: 0.97 }}
+              href={siteConfig.resumeUrl}
+              download
+              className="btn-outline flex items-center justify-center gap-2 min-w-[10.5rem] px-7 py-3.5 rounded-xl font-semibold text-sm border"
+            >
+              <FaDownload size={13} /> Download CV
+            </motion.a>
 
-              <motion.button
-                whileHover={{ scale: 1.04 }}
-                whileTap={{ scale: 0.97 }}
-                onClick={scrollToContact}
-                className="btn-ghost flex items-center justify-center gap-2 min-w-[10.5rem] px-7 py-3.5 rounded-xl font-semibold text-sm border"
-              >
-                Contact Me
-              </motion.button>
-            </div>
-
-            {/* Social links */}
-            <div className="flex flex-col items-center gap-4">
-              <div className="flex items-center gap-3">
-                <span
-                  className="h-px w-8"
-                  style={{ background: "var(--border-dark)" }}
-                />
-                <span
-                  className="text-xs font-mono uppercase tracking-widest"
-                  style={{ color: "var(--text-muted)" }}
-                >
-                  Find me on
-                </span>
-                <span
-                  className="h-px w-8"
-                  style={{ background: "var(--border-dark)" }}
-                />
-              </div>
-
-              <div className="flex items-center gap-3">
-                {socialLinks.map(({ Icon, href, label }) => (
-                  <motion.a
-                    key={label}
-                    href={href}
-                    target="_blank"
-                    rel="noreferrer"
-                    aria-label={label}
-                    whileHover={{ scale: 1.12, y: -2 }}
-                    whileTap={{ scale: 0.95 }}
-                    className="social-icon w-11 h-11 rounded-xl flex items-center justify-center border"
-                  >
-                    <Icon size={18} />
-                  </motion.a>
-                ))}
-              </div>
-            </div>
-          </motion.div>
-        </motion.div>
-
-        {/* Scroll indicator */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 2 }}
-          className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1"
-          style={{ color: "var(--text-muted)" }}
-        >
-          <span className="text-xs font-mono">scroll</span>
-          <motion.div
-            animate={{ y: [0, 6, 0] }}
-            transition={{ duration: 1.5, repeat: Infinity }}
-            className="w-5 h-8 rounded-full border flex items-start justify-center pt-1"
-            style={{ borderColor: "var(--border-dark)" }}
-          >
-            <div
-              className="w-1 h-2 rounded-full"
-              style={{ background: "var(--primary)" }}
-            />
+            <motion.button
+              whileHover={{ scale: 1.04 }}
+              whileTap={{ scale: 0.97 }}
+              onClick={scrollToContact}
+              className="btn-ghost flex items-center justify-center gap-2 min-w-[10.5rem] px-7 py-3.5 rounded-xl font-semibold text-sm border"
+            >
+              Contact Me
+            </motion.button>
           </motion.div>
         </motion.div>
       </div>

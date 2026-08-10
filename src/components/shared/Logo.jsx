@@ -1,20 +1,19 @@
-/** LogoMark — infinity + leaf badge, cropped from the brand logo artwork. */
+// Source art is 305x205 (not square) — background removed so it blends
+// straight into whatever's behind it instead of sitting in a colored box.
+const MARK_ASPECT = 305 / 205;
+
+/** LogoMark — infinity + leaf mark, background-free so it matches any surface. */
 export function LogoMark({ size = 40, className = "" }) {
+  const width = Math.round(size * MARK_ASPECT);
   return (
     <img
-      src="/logo-mark.png"
-      width={size}
+      src="/logo-mark-transparent.png"
+      width={width}
       height={size}
       alt=""
       aria-hidden="true"
       className={className}
-      style={{
-        width: size,
-        height: size,
-        objectFit: "contain",
-        backgroundColor: "#3a0e1e",
-        borderRadius: size * 0.2,
-      }}
+      style={{ width, height: size, objectFit: "contain" }}
     />
   );
 }

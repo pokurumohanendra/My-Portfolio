@@ -11,6 +11,11 @@ export const siteConfig = {
   email: "mohanendra.pokuru@gmail.com",
   resumeUrl: "/resume.pdf",
 
+  // Set to false to hide the availability badge in the Hero section
+  // (e.g. once you're no longer open to new roles).
+  availableForWork: true,
+  availabilityMessage: "Available for new opportunities",
+
 
   
   social: {

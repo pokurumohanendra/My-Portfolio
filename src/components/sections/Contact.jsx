@@ -17,9 +17,19 @@ import {
   viewportOptions,
 } from "../../animations/variants";
 
+function buildGmailComposeUrl({ name, email, subject, message }) {
+  const params = new URLSearchParams({
+    view: "cm",
+    fs: "1",
+    to: siteConfig.email,
+    su: subject,
+    body: `${message}\n\n— ${name} (${email})`,
+  });
+  return `https://mail.google.com/mail/?${params.toString()}`;
+}
+
 export default function Contact() {
   const [submitted, setSubmitted] = useState(false);
-  const [submitting, setSubmitting] = useState(false);
 
   const {
     register,
@@ -28,17 +38,8 @@ export default function Contact() {
     formState: { errors },
   } = useForm();
 
-  const onSubmit = async (data) => {
-    setSubmitting(true);
-    // TODO: Replace with EmailJS / Formspree integration
-    // Example with Formspree:
-    // await fetch("https://formspree.io/f/YOUR_FORM_ID", {
-    //   method: "POST",
-    //   headers: { "Content-Type": "application/json" },
-    //   body: JSON.stringify(data),
-    // });
-    await new Promise((r) => setTimeout(r, 1500)); // demo delay
-    setSubmitting(false);
+  const onSubmit = (data) => {
+    window.open(buildGmailComposeUrl(data), "_blank", "noopener,noreferrer");
     setSubmitted(true);
     reset();
     setTimeout(() => setSubmitted(false), 5000);
@@ -261,38 +262,24 @@ export default function Contact() {
             {/* Submit */}
             <motion.button
               type="submit"
-              disabled={submitting || submitted}
-              whileHover={{ scale: submitting || submitted ? 1 : 1.03 }}
+              disabled={submitted}
+              whileHover={{ scale: submitted ? 1 : 1.03 }}
               whileTap={{ scale: 0.97 }}
               className="w-full flex items-center justify-center gap-2 py-3.5 rounded-xl font-semibold text-sm text-white transition-all duration-300"
               style={{
                 background: submitted
                   ? "linear-gradient(135deg,#22c55e,#16a34a)"
                   : "var(--gradient-primary)",
-                opacity: submitting ? 0.7 : 1,
                 boxShadow: "0 4px 20px color-mix(in srgb, var(--primary) 30%, transparent)",
               }}
             >
               {submitted ? (
                 <>
-                  <FaCheck size={14} /> Message Sent! I'll get back to you soon.
-                </>
-              ) : submitting ? (
-                <>
-                  <motion.div
-                    animate={{ rotate: 360 }}
-                    transition={{
-                      duration: 0.8,
-                      repeat: Infinity,
-                      ease: "linear",
-                    }}
-                    className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full"
-                  />
-                  Sending...
+                  <FaCheck size={14} /> Opened in Gmail — hit send there!
                 </>
               ) : (
                 <>
-                  <FaPaperPlane size={14} /> Send Message
+                  <FaPaperPlane size={14} /> Send via Gmail
                 </>
               )}
             </motion.button>
