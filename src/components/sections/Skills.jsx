@@ -1,13 +1,15 @@
-import { useState, useRef } from "react";
+import { useState } from "react";
 import { motion } from "framer-motion";
 import {
   FaReact, FaNodeJs, FaHtml5, FaCss3Alt, FaPython,
-  FaGit, FaGithub, FaDocker,
+  FaGit, FaGithub, FaDocker, FaShieldAlt, FaLock, FaAws,
 } from "react-icons/fa";
 import {
   SiJavascript, SiTailwindcss, SiMongodb, SiExpress,
   SiSupabase, SiVite, SiSharp, SiDotnet, SiTypescript,
-  SiNextdotjs, SiPostgresql, SiReactquery,
+  SiNextdotjs, SiPostgresql, SiReactquery, SiRedux,
+  SiJsonwebtokens, SiGithubactions, SiPostman, SiRazorpay,
+  SiWhatsapp, SiRedis, SiGraphql, SiKubernetes,
 } from "react-icons/si";
 import { TbApi } from "react-icons/tb";
 import SectionHeading from "../shared/SectionHeading";
@@ -17,34 +19,30 @@ import { viewportOptions } from "../../animations/variants";
 // Icon map — add new icons here as needed
 const iconMap = {
   FaReact, FaNodeJs, FaHtml5, FaCss3Alt, FaPython,
-  FaGit, FaGithub, FaDocker,
+  FaGit, FaGithub, FaDocker, FaShieldAlt, FaLock, FaAws,
   SiJavascript, SiTailwindcss, SiMongodb, SiExpress,
   SiSupabase, SiVite, SiSharp, SiDotnet, SiTypescript,
-  SiNextdotjs, SiPostgresql, SiReactquery,
+  SiNextdotjs, SiPostgresql, SiReactquery, SiRedux,
+  SiJsonwebtokens, SiGithubactions, SiPostman, SiRazorpay,
+  SiWhatsapp, SiRedis, SiGraphql, SiKubernetes,
   TbApi,
 };
 
 function SkillCard({ skill, index }) {
   const [hovered, setHovered] = useState(false);
-  const [animated, setAnimated] = useState(false);
-  const ref = useRef(null);
   const Icon = iconMap[skill.icon];
 
   return (
     <motion.div
-      ref={ref}
       initial={{ opacity: 0, y: 30 }}
-      whileInView={() => {
-        setAnimated(true);
-        return { opacity: 1, y: 0 };
-      }}
+      whileInView={{ opacity: 1, y: 0 }}
       viewport={viewportOptions}
       transition={{ delay: index * 0.06, duration: 0.5 }}
       className="glass-card p-4"
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
     >
-      <div className="flex items-center gap-3 mb-3">
+      <div className="flex items-center gap-3">
         <div
           className="w-9 h-9 rounded-lg flex items-center justify-center flex-shrink-0 transition-transform duration-200"
           style={{
@@ -54,20 +52,13 @@ function SkillCard({ skill, index }) {
         >
           {Icon && <Icon size={18} style={{ color: skill.color || "var(--primary-light)" }} />}
         </div>
-        <div className="flex-1 min-w-0">
-          <p className="text-sm font-semibold truncate" style={{ color: "var(--text-primary)" }}>
-            {skill.name}
-          </p>
-          <p className="text-xs" style={{ color: "var(--text-muted)" }}>
-            {skill.proficiency}%
-          </p>
-        </div>
-      </div>
-      <div className="progress-bar">
-        <div
-          className="progress-fill"
-          style={{ width: animated ? `${skill.proficiency}%` : "0%" }}
-        />
+        <p
+          className="text-sm font-semibold truncate min-w-0 flex-1"
+          title={skill.name}
+          style={{ color: "var(--text-primary)" }}
+        >
+          {skill.name}
+        </p>
       </div>
     </motion.div>
   );

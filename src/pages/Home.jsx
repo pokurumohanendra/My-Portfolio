@@ -2,10 +2,12 @@ import { Suspense, lazy } from "react";
 import Navbar from "../components/layout/Navbar";
 import Footer from "../components/layout/Footer";
 import BackToTop from "../components/layout/BackToTop";
+import EngagementStats from "../components/shared/EngagementStats";
 import Hero from "../components/sections/Hero";
 
 // Lazy load below-fold sections for performance
 const About = lazy(() => import("../components/sections/About"));
+const Experience = lazy(() => import("../components/sections/Experience"));
 const Education = lazy(() => import("../components/sections/Education"));
 const Skills = lazy(() => import("../components/sections/Skills"));
 const Projects = lazy(() => import("../components/sections/Projects"));
@@ -33,6 +35,9 @@ export default function Home() {
           <About />
         </Suspense>
         <Suspense fallback={<SectionSkeleton />}>
+          <Experience />
+        </Suspense>
+        <Suspense fallback={<SectionSkeleton />}>
           <Education />
         </Suspense>
         <Suspense fallback={<SectionSkeleton />}>
@@ -50,6 +55,7 @@ export default function Home() {
       </main>
       <Footer />
       <BackToTop />
+      <EngagementStats />
     </>
   );
 }

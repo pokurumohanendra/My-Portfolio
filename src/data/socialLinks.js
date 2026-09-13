@@ -7,7 +7,7 @@ export const socialLinks = [
   {
     id: "github",
     label: "GitHub",
-    url: "https://github.com/yourusername",
+    url: "https://github.com/pokurumohanendra",
     Icon: FaGithub,
     color: "#ffffff",
     hoverColor: "#6e5494",
@@ -15,7 +15,7 @@ export const socialLinks = [
   {
     id: "linkedin",
     label: "LinkedIn",
-    url: "https://linkedin.com/in/yourusername",
+    url: "https://www.linkedin.com/in/pokuru-mohanendra/",
     Icon: FaLinkedin,
     color: "#0A66C2",
     hoverColor: "#0A66C2",
@@ -23,7 +23,7 @@ export const socialLinks = [
   {
     id: "email",
     label: "Email",
-    url: "mailto:your.email@gmail.com",
+    url: "mailto:mohanendra.pokuru@gmail.com",
     Icon: FaEnvelope,
     color: "#EA4335",
     hoverColor: "#EA4335",

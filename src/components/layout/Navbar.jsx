@@ -10,6 +10,7 @@ import { LogoMark } from "../shared/Logo";
 
 const navLinks = [
   { id: "about", label: "About" },
+  { id: "experience", label: "Experience" },
   { id: "education", label: "Education" },
   { id: "skills", label: "Skills" },
   { id: "projects", label: "Projects" },
@@ -94,12 +95,12 @@ export default function Navbar() {
             </button>
 
             {/* Desktop Nav */}
-            <ul className="hidden md:flex items-center gap-1">
+            <ul className="hidden lg:flex items-center gap-1">
               {navLinks.map((link) => (
                 <li key={link.id}>
                   <button
                     onClick={() => scrollTo(link.id)}
-                    className={`nav-link px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${
+                    className={`nav-link px-3 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${
                       activeSection === link.id ? "active" : ""
                     }`}
                   >
@@ -134,7 +135,7 @@ export default function Navbar() {
               {/* Mobile hamburger */}
               <button
                 onClick={() => setMobileOpen((v) => !v)}
-                className="icon-btn md:hidden w-9 h-9 flex items-center justify-center rounded-lg transition-all"
+                className="icon-btn lg:hidden w-9 h-9 flex items-center justify-center rounded-lg transition-all"
                 aria-label="Open menu"
               >
                 {mobileOpen ? <HiX size={22} /> : <HiMenuAlt3 size={22} />}
@@ -153,7 +154,7 @@ export default function Navbar() {
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: "100%" }}
             transition={{ duration: 0.3, ease: [0.4, 0, 0.2, 1] }}
-            className="fixed inset-0 z-40 md:hidden glass"
+            className="fixed inset-0 z-40 lg:hidden glass"
             style={{ paddingTop: "4rem" }}
           >
             <div className="container-custom py-8 flex flex-col gap-2">

@@ -5,9 +5,9 @@
 export const siteConfig = {
   name: "POKURU MOHANENDRA",
   title: "Full Stack Developer",
-  tagline: "Building scalable web applications with modern technologies.",
-  bio: "ECE graduate who discovered a passion for software during an internship and transitioned into full-stack web development through dedicated self-learning. I build responsive, performant, and maintainable applications using React, Node.js, and modern web technologies.",
-  location: "Hyderabad, Telangana, India",
+  tagline: "Building production SaaS applications with React, Next.js, Node.js, and PostgreSQL.",
+  bio: "Full Stack Software Engineer with production experience building real-estate SaaS applications in TypeScript, JavaScript, React, Next.js, Node.js, Express.js, and PostgreSQL. I build REST APIs, authentication and authorization flows, and third-party payment and messaging integrations, deployed as containerized services with CI/CD.",
+  location: "Hyderabad, India",
   email: "mohanendra.pokuru@gmail.com",
   resumeUrl: "/resume.pdf",
 
@@ -28,9 +28,9 @@ export const siteConfig = {
   seo: {
     title: "POKURU MOHANENDRA — Full Stack Developer",
     description:
-      "Portfolio of a Full Stack Developer specializing in React, Node.js, Express, MongoDB, and modern web technologies.",
+      "Portfolio of a Full Stack Developer specializing in React, Next.js, Node.js, Express, and PostgreSQL, with production experience building real-estate SaaS applications.",
     keywords:
-      "full stack developer, react developer, node.js, express, mongodb, portfolio",
+      "full stack developer, react developer, next.js developer, node.js, express, postgresql, portfolio",
     url: "https://yourportfolio.vercel.app",
     image: "/og-image.png",
   },

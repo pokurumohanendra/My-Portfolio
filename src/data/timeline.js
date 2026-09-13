@@ -56,22 +56,12 @@ export const timeline = [
   },
   {
     id: 6,
-    year: "2026 – Present",
-    title: "Building Production-Ready Projects",
+    year: "Jul 2026 – Present",
+    title: "Full Stack Developer Intern at NearEstate",
     description:
-      "Currently focused on building well-architected, maintainable, and polished full-stack applications. Continuously improving through GitHub, practice, and learning modern best practices.",
-    icon: "FaRocket",
-    type: "current",
-    tags: ["Full Stack", "Open Source", "Projects", "Growth"],
+      "Joined NearEstate as a Full Stack Developer Intern, contributing to two production real-estate applications — RealView360 and CRM.NearEstate — across frontend, backend, PostgreSQL, security, and deployment.",
+    icon: "FaBriefcase",
+    type: "work",
+    tags: ["Next.js", "Express.js", "PostgreSQL", "Production", "Internship"],
   },
-  // ─── ADD NEW MILESTONES BELOW ─────────────────────────────
-  // {
-  //   id: 7,
-  //   year: "2027",
-  //   title: "First Developer Role",
-  //   description: "...",
-  //   icon: "FaBriefcase",
-  //   type: "work",
-  //   tags: ["Professional", "Experience"],
-  // },
 ];

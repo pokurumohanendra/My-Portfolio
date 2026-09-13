@@ -7,8 +7,8 @@ import { fadeInUp, fadeInDown, staggerContainer } from "../../animations/variant
 const ROLES = [
   "Full Stack Developer",
   "React Developer",
+  "Next.js Developer",
   "Node.js Developer",
-  "MERN Stack Developer",
   "Problem Solver",
 ];
 

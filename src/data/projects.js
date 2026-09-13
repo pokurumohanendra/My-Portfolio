@@ -5,203 +5,113 @@
 
 export const projects = [
   {
-    id: "time-for-soul",
-    title: "Time For Soul",
+    id: "realview360",
+    title: "RealView360",
     shortDesc:
-      "A React-based travel packing list app with dynamic list rendering, sorting, and reusable components.",
+      "A property discovery platform with SEO-optimized listings, 360° virtual tours, and integrated payments and messaging.",
     description:
-      "A React travel packing list application where users can add items, mark them as packed, sort by status, and track progress. Built to practice component composition and client-side state management without a backend.",
+      "A production real-estate property discovery platform built at NearEstate. Combines server-rendered pages for SEO-sensitive property listings with interactive client components for search and 360° virtual tours, backed by an Express.js API and PostgreSQL.",
     problem:
-      "Packing for a trip usually means a messy paper list or notes app — no structure, no way to see what's still left to pack.",
+      "Property listings need to rank well in search while still offering rich, interactive browsing — virtual tours, live search, filters — that traditional server-rendered sites struggle to deliver without hurting SEO or performance.",
     solution:
-      "Built a single-page React app with a controlled form for adding items, derived stats for packed/total counts, and sorting by input order, description, or packed status — all driven by component state.",
-    techStack: ["React", "JavaScript", "CSS3", "HTML5"],
-    category: "frontend",
-    featured: true,
-    github: "https://github.com/pokurumohanendra/Time-For-Soul",
-    demo: "https://enjoy-your-trip.netlify.app/",
+      "Built customer-facing features with Next.js 16, React 19, and Redux Toolkit, pairing server-rendered listing pages with client components for search and 360° tours. Backend workflows use Express.js with route/controller/service layers, integrated through Next.js server-side API rewrites, with PostgreSQL accessed via parameterized raw SQL through the pg library across authentication, properties, leads, billing, and subscriptions.",
+    techStack: [
+      "Next.js 16",
+      "React 19",
+      "Redux Toolkit",
+      "Express.js",
+      "PostgreSQL",
+      "WhatsApp Business Cloud API",
+      "Razorpay",
+      "Google Places API",
+      "Docker Compose",
+    ],
+    category: "fullstack",
+    featured: false,
+    github: "",
+    demo: "",
     screenshots: [],
     challenges:
-      "Keeping the list state and derived statistics (packed count, sort order) in sync without introducing unnecessary re-renders or prop drilling.",
+      "Balancing SEO-sensitive server rendering with interactive client-side features like virtual tours and live search, while keeping PostgreSQL access safe and consistent across authentication, billing, and subscription domains using raw parameterized SQL.",
     learnings:
-      "Component architecture, controlled forms, array state updates (add/toggle/delete/sort) in React, and deploying a CRA build to Netlify.",
+      "Layered Express.js architecture (route/controller/service), integrating third-party services (WhatsApp Business Cloud API, Razorpay, Google Places, S3-compatible storage) into a production workflow, and containerizing multi-service apps with Docker Compose.",
     futureImprovements:
-      "Persist the list with localStorage, add packing categories, and support multiple trips.",
+      "Expand virtual tour interactivity, add saved-search notifications, and extend billing/subscription automation.",
     year: 2026,
   },
   {
-    id: "classy-weather",
-    title: "ClassyWeather",
+    id: "crm-nearestate",
+    title: "CRM.NearEstate",
     shortDesc:
-      "A React weather app with city search and geolocation, backed by a live weather API.",
+      "A multi-tenant real estate CRM migrated from a single-tenant architecture, with tenant-scoped access across 34 PostgreSQL tables.",
     description:
-      "A weather forecast app built with React that lets users search any city or use geolocation to fetch real-time conditions and a multi-day forecast from a public weather API.",
+      "A multi-tenant SaaS CRM for real estate teams, migrated from a legacy single-tenant system. Enforces tenant-scoped access across 34 PostgreSQL tables and 24+ API modules, with WhatsApp Business Cloud API messaging and CRM workflows like contact management, CSV imports, and follow-ups.",
     problem:
-      "Most quick weather lookups require a full app install or a cluttered site full of ads just to see today's forecast.",
+      "A single-tenant CRM couldn't scale to serve multiple real estate businesses in isolation — it needed tenant-scoped data access, secure credential resolution per tenant, and hardened authentication before it could operate as a SaaS product.",
     solution:
-      "Built a focused React app that debounces city search, calls a geocoding + weather API to resolve coordinates, and renders current conditions with day-by-day forecast cards.",
-    techStack: ["React", "JavaScript", "Weather API", "CSS3"],
-    category: "frontend",
-    featured: true,
-    github: "https://github.com/pokurumohanendra/ClassyWeather",
-    demo: "https://classy-weather6.netlify.app/",
+      "Contributed to migrating the CRM to a multi-tenant architecture, enforcing tenant-scoped access across 34 PostgreSQL tables and 24+ API modules. Identified and remediated a production authentication bypass and unintended database exposure, and implemented tenant-specific WhatsApp Business Cloud API credential resolution with webhook signature verification, pacing, and automatic retries for failed and rate-limited broadcasts.",
+    techStack: ["Next.js", "Express.js", "PostgreSQL", "REST APIs", "Docker", "GitHub Actions"],
+    category: "fullstack",
+    featured: false,
+    github: "",
+    demo: "",
     screenshots: [],
     challenges:
-      "Handling async API calls cleanly — loading states, race conditions when the user types a new city before the previous request resolves, and graceful error handling for invalid locations.",
+      "Retrofitting tenant isolation onto an existing single-tenant schema without breaking live workflows, and closing a production authentication bypass that risked cross-tenant data exposure.",
     learnings:
-      "Working with external REST APIs from React, effect cleanup for async requests, and rendering conditional UI states (loading / error / data).",
+      "Multi-tenant SaaS architecture patterns, webhook signature verification, rate-limit-aware retry logic for messaging APIs, and production deployment with Docker and GitHub Actions.",
     futureImprovements:
-      "Add hourly forecast, unit toggle (°C/°F), and cache recent searches.",
+      "Extend tenant-level analytics, add role-based permission granularity, and automate more of the CSV import validation pipeline.",
     year: 2026,
   },
   {
-    id: "omnifood",
-    title: "OmniFood",
+    id: "the-wild-oasis",
+    title: "The Wild Oasis",
     shortDesc:
-      "A responsive restaurant landing page showcasing modern CSS layout and design patterns.",
+      "A responsive hotel-management dashboard with CRUD workflows for cabins, bookings, and guests, backed by Supabase.",
     description:
-      "A fully responsive restaurant/food-delivery landing page built with semantic HTML5 and modern CSS3 — hero section, feature highlights, testimonials, pricing, and a call-to-action, all without a CSS framework.",
+      "A hotel-management dashboard built with React, featuring reusable components and full CRUD workflows for cabins, bookings, and guests, with server-state caching via React Query and validated forms via React Hook Form.",
     problem:
-      "A restaurant or food brand needs a polished, fast-loading marketing page that looks good on every screen size.",
+      "Hotel staff need a fast, reliable internal tool to manage cabins, bookings, and guest records without juggling spreadsheets or a clunky admin panel.",
     solution:
-      "Hand-built the layout with CSS Grid and Flexbox, using media queries for a mobile-first responsive breakpoint system and CSS custom properties for consistent spacing and color.",
-    techStack: ["HTML5", "CSS3", "CSS Grid", "Flexbox"],
+      "Built a component-driven React dashboard with Supabase as the backend, using React Query for server-state caching and optimistic updates, and React Hook Form for validated create/edit forms across cabins, bookings, and guests.",
+    techStack: ["React", "React Query", "Supabase", "React Hook Form"],
+    category: "fullstack",
+    featured: false,
+    github: "",
+    demo: "",
+    screenshots: [],
+    challenges:
+      "Keeping server state in sync across CRUD operations and multiple views without over-fetching, while validating and handling errors gracefully in forms with interdependent fields.",
+    learnings:
+      "Server-state management patterns with React Query, building reusable CRUD-oriented component architecture, and structuring a Supabase backend for a dashboard application.",
+    futureImprovements:
+      "Add role-based staff accounts, booking calendar view, and revenue analytics.",
+    year: 2026,
+  },
+  {
+    id: "usepopcorn",
+    title: "usePopcorn",
+    shortDesc:
+      "A movie search application using the OMDb REST API, with ratings, detailed views, and persistent watched-movie data.",
+    description:
+      "A movie search application built with React and the OMDb REST API, featuring search, ratings, detailed movie views, reusable custom hooks, and persistent watched-movie data via local storage.",
+    problem:
+      "Finding and tracking movies you want to watch (or have watched) usually means bouncing between a search site and a separate notes app.",
+    solution:
+      "Built a React app that queries the OMDb REST API for search results, renders detailed movie views on selection, and persists a user's rated watched-list to local storage using reusable custom hooks.",
+    techStack: ["React", "JavaScript", "REST API", "Local Storage"],
     category: "frontend",
     featured: false,
-    github: "https://github.com/pokurumohanendra/OmniFood",
-    demo: "https://omnifood-eat-wisely.netlify.app/",
+    github: "",
+    demo: "",
     screenshots: [],
     challenges:
-      "Getting complex multi-column sections (pricing, testimonials) to gracefully collapse to a single column on mobile without hardcoding breakpoints per section.",
+      "Debouncing search input against a rate-limited external API and keeping the watched-list in sync between component state and local storage.",
     learnings:
-      "Advanced CSS Grid and Flexbox composition, responsive design without a framework, and structuring a large HTML/CSS project into readable, maintainable sections.",
+      "Custom React hooks (useLocalStorage, useKey, debounced fetch), working with a third-party REST API, and persisting client-side state reliably.",
     futureImprovements:
-      "Add a working reservation form and connect it to a backend or form service.",
-    year: 2026,
-  },
-  {
-    id: "lisbon-chair-shop",
-    title: "Lisbon Chair Shop",
-    shortDesc:
-      "A modern, responsive landing page UI for a custom chair shop, built with HTML & CSS.",
-    description:
-      "A product-focused e-commerce landing page for a chair shop, featuring a hero banner, product showcase grid, and responsive layout built entirely with HTML and CSS.",
-    problem:
-      "Small product-based businesses need an attractive single-page site to showcase what they sell without the overhead of a full e-commerce platform.",
-    solution:
-      "Designed a clean, image-driven landing page using CSS Grid for the product showcase and Flexbox for navigation and content alignment, tuned for both desktop and mobile.",
-    techStack: ["HTML5", "CSS3", "CSS Grid", "Flexbox"],
-    category: "frontend",
-    featured: false,
-    github: "https://github.com/pokurumohanendra/Lisbon-Chair-Shop",
-    demo: "https://chairs-for-sale.netlify.app/",
-    screenshots: [],
-    challenges:
-      "Balancing large product imagery with fast perceived load time and a layout that stays visually consistent across breakpoints.",
-    learnings:
-      "Practical CSS Grid/Flexbox layout patterns for product showcases and building a full page from a design reference.",
-    futureImprovements:
-      "Add a cart/checkout flow and product filtering.",
-    year: 2026,
-  },
-  {
-    id: "movie-rating",
-    title: "Movie Rating",
-    shortDesc:
-      "A minimalist app for organizing, adding, and managing a personal database of favorite movies.",
-    description:
-      "A vanilla JavaScript app for tracking movies you've watched — add a title, rate it, and manage a running list, all persisted client-side.",
-    problem:
-      "Remembering which movies you've already watched and how you'd rate them gets messy without a simple, dedicated tool.",
-    solution:
-      "Built a DOM-driven JavaScript app with functions to add, render, and remove movie entries, using array methods to keep the in-memory list and the rendered UI in sync.",
-    techStack: ["JavaScript", "HTML5", "CSS3"],
-    category: "frontend",
-    featured: false,
-    github: "https://github.com/pokurumohanendra/Movie-Rating",
-    demo: "https://favorite-movie-rating-7.netlify.app/",
-    screenshots: [],
-    challenges:
-      "Keeping the DOM in sync with the underlying data array using plain JavaScript, without a framework's reactivity to fall back on.",
-    learnings:
-      "DOM manipulation fundamentals, event delegation, and array-driven UI rendering in vanilla JS.",
-    futureImprovements:
-      "Persist ratings with localStorage and pull posters/metadata from a movie API.",
-    year: 2026,
-  },
-  {
-    id: "mini-game",
-    title: "Mini Game In Browser",
-    shortDesc:
-      "A JavaScript browser mini-game featuring player-vs-monster combat, health bars, and an action log.",
-    description:
-      "A small browser combat game where the player fights a monster with attack and heal actions, tracked through animated health bars and a live action log, with bonus-life mechanics for a bit of extra challenge.",
-    problem:
-      "Wanted a hands-on way to practice game-style state logic — health, turns, win/lose conditions — using nothing but core JavaScript.",
-    solution:
-      "Implemented turn-based combat logic in vanilla JS: attack/heal handlers that mutate health state, update health-bar widths dynamically, and log every action for the player to follow.",
-    techStack: ["JavaScript", "HTML5", "CSS3"],
-    category: "frontend",
-    featured: false,
-    github: "https://github.com/pokurumohanendra/Mini-Game-In-Browser",
-    demo: "https://browser-based-mini-game.netlify.app/",
-    screenshots: [],
-    challenges:
-      "Designing game state (health, turns, bonus lives) so win/lose conditions trigger correctly across every edge case, like simultaneous low health.",
-    learnings:
-      "Event-driven game logic, dynamic style updates for health bars, and structuring game state without a framework.",
-    futureImprovements:
-      "Add difficulty levels, sound effects, and a two-player mode.",
-    year: 2026,
-  },
-  {
-    id: "the-blog",
-    title: "The Blog",
-    shortDesc:
-      "A mini blog site exploring semantic HTML and modern CSS layout, featured on The Code Magazine.",
-    description:
-      "\"The Basic Language of the Web\" — a small blog-style site built to practice semantic HTML5 structure paired with CSS Flexbox and Grid for layout.",
-    problem:
-      "Wanted a focused project to practice writing clean, semantic HTML and pairing it with modern CSS layout techniques instead of relying on old float-based layouts.",
-    solution:
-      "Built the page with semantic tags (article, section, header, nav) and used CSS Grid for the overall page structure with Flexbox for component-level alignment.",
-    techStack: ["HTML5", "CSS3", "CSS Grid", "Flexbox"],
-    category: "frontend",
-    featured: false,
-    github: "https://github.com/pokurumohanendra/The-Blog",
-    demo: "https://the-mini-blog.netlify.app/",
-    screenshots: [],
-    challenges:
-      "Keeping markup semantic and accessible while still achieving a modern, visually structured layout.",
-    learnings:
-      "Semantic HTML best practices and combining CSS Grid and Flexbox for real page layouts.",
-    futureImprovements:
-      "Convert to a data-driven blog with Markdown posts.",
-    year: 2026,
-  },
-  {
-    id: "basic-calculator",
-    title: "Basic Calculator",
-    shortDesc:
-      "A minimalistic web-based calculator for fundamental arithmetic, hosted on GitHub Pages.",
-    description:
-      "The Unconventional Calculator — a clean, focused calculator web app built with HTML, CSS, and JavaScript, handling the four basic arithmetic operations through a simple, user-friendly interface.",
-    problem:
-      "Wanted a self-contained project to practice core JavaScript logic — parsing input, handling operator precedence, and updating a live display.",
-    solution:
-      "Built the calculator's logic in vanilla JavaScript, wiring button clicks to update an expression string and evaluate results, styled with plain CSS for a clean interface.",
-    techStack: ["JavaScript", "HTML5", "CSS3"],
-    category: "tool",
-    featured: false,
-    github: "https://github.com/pokurumohanendra/basic-calculator",
-    demo: "https://pokurumohanendra.github.io/basic-calculator/",
-    screenshots: [],
-    challenges:
-      "Handling edge cases in input parsing — chained operators, decimal points, and clearing/backspacing state correctly.",
-    learnings:
-      "Core JavaScript event handling and state management for a small interactive UI, plus deploying a static site via GitHub Pages.",
-    futureImprovements:
-      "Add keyboard input support and a calculation history.",
+      "Add streaming-availability lookups and shareable watched-list exports.",
     year: 2026,
   },
 ];

@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { FaGraduationCap, FaCode, FaRocket, FaDownload } from "react-icons/fa";
+import { FaGraduationCap, FaCode, FaRocket, FaDownload, FaShieldAlt } from "react-icons/fa";
 import { HiLightBulb } from "react-icons/hi";
 import SectionHeading from "../shared/SectionHeading";
 import { siteConfig } from "../../config/site.config";
@@ -12,10 +12,10 @@ import {
 } from "../../animations/variants";
 
 const stats = [
-  { value: "8+", label: "Months Learning", icon: FaCode },
-  { value: "3+", label: "Projects Built", icon: FaRocket },
-  { value: "10+", label: "Technologies", icon: HiLightBulb },
-  { value: "∞", label: "Curiosity", icon: FaGraduationCap },
+  { value: "2", label: "Live Applications", icon: FaRocket },
+  { value: "34", label: "DB Tables Migrated", icon: FaGraduationCap },
+  { value: "24+", label: "API Modules", icon: FaCode },
+  { value: "10+", label: "Integrations", icon: HiLightBulb },
 ];
 
 const highlights = [
@@ -25,19 +25,19 @@ const highlights = [
     desc: "B.Tech in Electronics & Communication Engineering — strong analytical foundation.",
   },
   {
-    icon: HiLightBulb,
-    title: "Self-Driven Learner",
-    desc: "Transitioned into web development through dedicated, structured self-learning.",
+    icon: FaCode,
+    title: "Full Stack Engineer",
+    desc: "Building production features end-to-end with React, Next.js, Express.js, and PostgreSQL.",
   },
   {
-    icon: FaCode,
-    title: "Full Stack Developer",
-    desc: "Building end-to-end applications with React, Node.js, Express, and MongoDB.",
+    icon: FaShieldAlt,
+    title: "Security-Minded",
+    desc: "Identified and remediated a production authentication bypass, strengthening tenant isolation.",
   },
   {
     icon: FaRocket,
-    title: "Always Growing",
-    desc: "Continuously learning modern tools, best practices, and engineering patterns.",
+    title: "Ships to Production",
+    desc: "Containerized services with Docker, deployed with CI/CD via GitHub Actions.",
   },
 ];
 
@@ -68,23 +68,24 @@ export default function About() {
               <span className="gradient-text font-semibold">
                 Full Stack Developer
               </span>{" "}
-              who graduated with a B.Tech in Electronics & Communication Engineering. During a
-              short-term internship, I was exposed to real-world software development — watching
-              applications being built from scratch completely changed my direction.
+              with production experience building real-estate SaaS applications. As part of the
+              engineering team at NearEstate, I work across two live products — RealView360, a
+              property discovery platform, and CRM.NearEstate, a multi-tenant real estate CRM.
             </p>
             <p className="text-lg leading-relaxed" style={{ color: "var(--text-secondary)" }}>
-              I committed to an intensive self-learning journey, starting from the fundamentals of
-              HTML and CSS to building complete full-stack applications using{" "}
+              I build REST APIs, authentication and authorization flows, and third-party payment
+              and messaging integrations using{" "}
               <span style={{ color: "var(--primary-light)" }}>React</span>,{" "}
+              <span style={{ color: "var(--primary-light)" }}>Next.js</span>,{" "}
               <span style={{ color: "var(--primary-light)" }}>Node.js</span>,{" "}
-              <span style={{ color: "var(--primary-light)" }}>Express</span>,{" "}
-              <span style={{ color: "var(--primary-light)" }}>MongoDB</span>, and{" "}
-              <span style={{ color: "var(--primary-light)" }}>Supabase</span>.
+              <span style={{ color: "var(--primary-light)" }}>Express.js</span>, and{" "}
+              <span style={{ color: "var(--primary-light)" }}>PostgreSQL</span>, deployed as
+              containerized services with CI/CD.
             </p>
             <p className="text-lg leading-relaxed" style={{ color: "var(--text-secondary)" }}>
-              I believe that passion, consistency, and hands-on building matter more than years of
-              experience. Every project I build teaches me something new about engineering,
-              problem-solving, and software design.
+              I've contributed to a multi-tenant CRM migration across 34 PostgreSQL tables,
+              remediated a production authentication bypass, and shipped customer-facing features
+              across both applications — from search and virtual tours to billing and messaging.
             </p>
 
             {/* Highlights */}
@@ -198,8 +199,8 @@ export default function About() {
                 &nbsp;&nbsp;<span style={{ color: "#94a3b8" }}>stack</span>:{" "}
                 <span style={{ color: "#818cf8" }}>[</span>
                 <span style={{ color: "#a3e635" }}>"React"</span>,{" "}
-                <span style={{ color: "#a3e635" }}>"Node"</span>,{" "}
-                <span style={{ color: "#a3e635" }}>"MongoDB"</span>
+                <span style={{ color: "#a3e635" }}>"Next.js"</span>,{" "}
+                <span style={{ color: "#a3e635" }}>"PostgreSQL"</span>
                 <span style={{ color: "#818cf8" }}>]</span>,
                 <br />
                 &nbsp;&nbsp;<span style={{ color: "#94a3b8" }}>available</span>:{" "}
