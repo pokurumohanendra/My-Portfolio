@@ -195,7 +195,7 @@ export const projects = [
     techStack: ["React", "JavaScript", "Context API"],
     category: "frontend",
     image: "/projects/the-atomic-blog.jpg",
-    github: "",
+    github: "https://github.com/pokurumohanendra/The-Automic-Blogs",
     demo: "https://creat-your-custom-blogs-web-app.netlify.app/",
     year: 2025,
   },
