@@ -34,7 +34,7 @@ src/
 public/
 ├── projects/      project screenshots (1280×800 JPEG)
 ├── og-image.png   social preview (1200×630)
-└── resume.pdf
+└── Pokuru_Mohanendra_Resume.pdf
 ```
 
 ## Updating content
