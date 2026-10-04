@@ -1,3 +1,4 @@
 User-agent: *
 Allow: /
-Sitemap: https://yourportfolio.vercel.app/sitemap.xml
+
+Sitemap: https://mohanendra-pokuru-portfolio-website.netlify.app/sitemap.xml

@@ -6,6 +6,7 @@ export const siteConfig = {
   tagline: "Building production SaaS applications with React, Next.js, Node.js, and PostgreSQL.",
   location: "Hyderabad, India",
   email: "mohanendra.pokuru@gmail.com",
+  siteUrl: "https://mohanendra-pokuru-portfolio-website.netlify.app",
   resumeUrl: "/Pokuru_Mohanendra_Resume.pdf",
 
   // Set to false to hide the availability badge in the Hero section
