@@ -1,135 +1,77 @@
-# 🚀 Developer Portfolio
+# Portfolio
 
-A production-grade, fully scalable personal portfolio built with **React**, **Vite**, **Tailwind CSS**, and **Framer Motion**.
+Personal portfolio built with React 19, Vite, Tailwind CSS v4 and Framer Motion.
 
----
+## Features
 
-## 🌟 Features
+- Light and dark themes (follows the system until the visitor chooses)
+- Command palette (`Ctrl/⌘ + K`) to jump to sections, projects and actions
+- Projects list with type filters, search (press `/`), screenshot previews and case-study pages (architecture diagram and key decisions)
+- Writing section with short technical posts
+- Live "recently active on GitHub" block from the public GitHub API
+- Skills linked to projects: select a skill to see the projects that use it
+- Accessible by default: skip link, labelled forms, keyboard navigation, reduced-motion support
+- Per-page titles and descriptions, Open Graph image, and JSON-LD structured data
+- Optional live view / like / share counter backed by Supabase
 
-- ⚡ Lightning-fast Vite + React setup
-- 🎨 Dark-first glassmorphism design with Indigo + Cyan gradient
-- 🎭 Smooth Framer Motion animations throughout
-- 📱 Fully responsive — mobile, tablet, desktop, ultrawide
-- 🔍 Projects with filter, search, and dedicated detail pages
-- 📊 Animated skills progress bars with category tabs
-- 🗓️ Authentic learning journey timeline
-- 📬 Contact form with validation (React Hook Form)
-- ♿ Accessible — semantic HTML, keyboard nav, ARIA labels
-- 🔎 SEO optimized — meta tags, Open Graph, Twitter Card
-- 🚀 Code-split with React.lazy + Suspense for performance
-- 🌙 Dark/Light theme toggle with persistence
-
----
-
-## 📁 Project Structure
+## Project structure
 
 ```
 src/
-├── animations/       ← Framer Motion variants (reuse everywhere)
-├── assets/           ← Images, profile photo
+├── animations/    shared Framer Motion variants
 ├── components/
-│   ├── layout/       ← Navbar, Footer, LoadingScreen, BackToTop
-│   ├── sections/     ← Hero, About, Skills, Projects, Journey, Contact
-│   ├── shared/       ← SectionHeading, etc.
-│   └── ui/           ← Button, Badge (reusable atoms)
-├── config/           ← site.config.js (YOUR personal details go here)
-├── context/          ← ThemeContext
-├── data/             ← ⭐ EDIT THESE to add content
-│   ├── projects.js
-│   ├── skills.js
-│   ├── timeline.js
-│   ├── education.js
-│   ├── certificates.js
-│   └── socialLinks.js
-├── hooks/            ← useScrollSpy, useScrollProgress
-├── pages/            ← Home, ProjectDetail, NotFound
-└── routes/           ← AppRouter
+│   ├── layout/    Layout, Navbar, Footer, BackToTop
+│   ├── sections/  Hero, About, Experience, Projects, Skills, Education, Journey, Writing, Contact
+│   ├── shared/    ArchitectureDiagram, CommandPalette, GitHubActivity, ProjectThumb, Reveal, SectionHeading, Seo, EngagementStats
+│   └── ui/        Button, Badge, BulletList, ExternalLink, InstitutionMark, RowItem, Section
+├── config/        site.config.js (name, email, links, SEO)
+├── context/       Theme, Palette and ProjectFilter providers (+ contexts.js)
+├── data/          navigation, projects, caseStudies, posts, skills, experience, education, timeline, socialLinks
+├── hooks/         context hooks, useSectionNav, useCopyToClipboard, scroll hooks
+├── lib/           projects, github, scroll helpers, supabase client
+├── pages/         Home, ProjectDetail, PostDetail, NotFound
+└── routes/        AppRouter
+public/
+├── projects/      project screenshots (1280×800 JPEG)
+├── og-image.png   social preview (1200×630)
+└── resume.pdf
 ```
 
----
+## Updating content
 
-## ✏️ How to Customize
+Everything visible comes from a data file, so no component changes are needed.
 
-### Update Personal Info
-Edit [`src/config/site.config.js`](src/config/site.config.js):
-```js
-export const siteConfig = {
-  name: "Your Real Name",
-  email: "your@email.com",
-  social: {
-    github: "https://github.com/yourusername",
-    linkedin: "https://linkedin.com/in/yourusername",
-  },
-};
-```
+| To change | Edit |
+|-----------|------|
+| Name, email, location, social links, SEO | `src/config/site.config.js` |
+| Add a project | `src/data/projects.js` (see the field notes at the top of the file) |
+| Add an architecture diagram and key decisions to a project | `src/data/caseStudies.js`, keyed by project id |
+| Publish a post | add an object to `src/data/posts.js` |
+| Skills | `src/data/skills.js` |
+| Jobs, education, timeline | `src/data/experience.js`, `education.js`, `timeline.js` |
+| Section order or nav labels | `src/data/navigation.js` |
+| Colours | CSS variables at the top of `src/index.css` |
 
-### Add a New Project
-Add an object to [`src/data/projects.js`](src/data/projects.js):
-```js
-{
-  id: "my-app",
-  title: "My App",
-  shortDesc: "A brief description",
-  techStack: ["React", "Node.js", "MongoDB"],
-  category: "fullstack",   // "frontend" | "fullstack" | "backend" | "tool"
-  featured: true,
-  github: "https://github.com/...",
-  demo: "https://...",
-  year: 2026,
-  // ... other fields
-}
-```
+Adding `leetcode` or `twitter` to `siteConfig.social` shows the link in the footer, contact section and command palette automatically.
 
-### Add a New Skill
-Add to [`src/data/skills.js`](src/data/skills.js):
-```js
-{ name: "TypeScript", icon: "SiTypescript", proficiency: 70, color: "#3178C6" }
-```
+### Project screenshots
 
-### Add a Certificate
-Add to [`src/data/certificates.js`](src/data/certificates.js).
+Put a 1280×800 image in `public/projects/` and set `image: "/projects/<id>.jpg"` on the project. Projects without an image show a typographic placeholder.
 
----
-
-## 🛠️ Tech Stack
-
-| Tool | Purpose |
-|------|---------|
-| React + Vite | Framework & build tool |
-| Tailwind CSS | Styling |
-| Framer Motion | Animations |
-| React Router v6 | Routing |
-| React Icons | Icons |
-| React Hook Form | Contact form |
-| TanStack Query | API caching |
-
----
-
-## 🚀 Getting Started
+## Scripts
 
 ```bash
-# Install dependencies
 npm install
-
-# Start dev server
-npm run dev
-
-# Build for production
-npm run build
+npm run dev       # development server
+npm run build     # production build
+npm run preview   # preview the production build
+npm run lint      # oxlint
 ```
 
----
+## Environment
 
-## 📦 Deployment
+Copy `.env.example` to `.env` and add your Supabase URL and anon key to enable the live counter. Without them the counter is hidden. The table and functions are in `supabase/schema.sql`.
 
-Deploy instantly to **Vercel**:
+## Deployment
 
-1. Push to GitHub
-2. Import repo at [vercel.com](https://vercel.com)
-3. Click Deploy — done!
-
----
-
-## 📝 License
-
-MIT — free to use and adapt.
+Deploy to Vercel or Netlify. Before going live, replace `https://yourportfolio.vercel.app` in `index.html`, `src/config/site.config.js` and `public/robots.txt` with the real domain so canonical links and the social preview resolve.

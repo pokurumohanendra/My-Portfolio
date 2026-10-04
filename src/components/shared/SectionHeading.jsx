@@ -1,39 +1,17 @@
-import { motion } from "framer-motion";
-import { fadeInUp, viewportOptions } from "../../animations/variants";
+import Reveal from "./Reveal";
+import { sectionNumber } from "../../data/navigation";
 
-/**
- * SectionHeading — Consistent section title with gradient accent line.
- * Props: title (string), subtitle (string, optional), centered (bool)
- */
-export default function SectionHeading({ title, subtitle, centered = true }) {
+/** SectionHeading — auto-numbered eyebrow, serif title, optional intro. */
+export default function SectionHeading({ id, title, subtitle }) {
   return (
-    <motion.div
-      variants={fadeInUp}
-      initial="hidden"
-      whileInView="visible"
-      viewport={viewportOptions}
-      className={`mb-16 ${centered ? "text-center" : ""}`}
-    >
-      <h2
-        className="text-3xl sm:text-4xl font-bold tracking-tight"
-        style={{ color: "var(--text-primary)" }}
-      >
+    <Reveal className="mb-12 md:mb-16 max-w-2xl">
+      <p className="eyebrow mb-3">
+        <span className="eyebrow-accent">{sectionNumber(id)}</span> / {title}
+      </p>
+      <h2 id={`${id}-title`} className="text-3xl sm:text-4xl text-ink">
         {title}
       </h2>
-      <div
-        className={`section-underline mt-3 ${centered ? "mx-auto" : ""}`}
-      />
-      {subtitle && (
-        <p
-          className="mt-4 text-lg max-w-2xl leading-relaxed"
-          style={{
-            color: "var(--text-secondary)",
-            margin: centered ? "1rem auto 0" : "1rem 0 0",
-          }}
-        >
-          {subtitle}
-        </p>
-      )}
-    </motion.div>
+      {subtitle && <p className="mt-4 text-ink-2 text-lg leading-relaxed">{subtitle}</p>}
+    </Reveal>
   );
 }

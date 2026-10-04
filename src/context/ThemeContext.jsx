@@ -1,29 +1,40 @@
-import { createContext, useContext, useState, useEffect } from "react";
+import { useEffect, useState } from "react";
+import { ThemeContext } from "./contexts";
 
-const ThemeContext = createContext(null);
+const STORAGE_KEY = "portfolio-theme";
+
+// A saved choice wins; otherwise follow the visitor's system preference.
+function getInitialTheme() {
+  try {
+    const saved = localStorage.getItem(STORAGE_KEY);
+    if (saved === "dark" || saved === "light") return saved;
+  } catch {
+    /* storage unavailable, fall through */
+  }
+  return window.matchMedia?.("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+}
 
 export function ThemeProvider({ children }) {
-  const [isDark, setIsDark] = useState(false);
+  const [theme, setTheme] = useState(getInitialTheme);
 
   useEffect(() => {
-    const saved = localStorage.getItem("portfolio-theme");
-    if (saved) setIsDark(saved === "dark");
-  }, []);
+    document.documentElement.setAttribute("data-theme", theme);
+  }, [theme]);
 
-  useEffect(() => {
-    localStorage.setItem("portfolio-theme", isDark ? "dark" : "light");
-    document.documentElement.setAttribute("data-theme", isDark ? "dark" : "light");
-  }, [isDark]);
+  const toggleTheme = () =>
+    setTheme((t) => {
+      const next = t === "dark" ? "light" : "dark";
+      try {
+        localStorage.setItem(STORAGE_KEY, next);
+      } catch {
+        /* ignore */
+      }
+      return next;
+    });
 
   return (
-    <ThemeContext.Provider value={{ isDark, toggleTheme: () => setIsDark((v) => !v) }}>
+    <ThemeContext.Provider value={{ isDark: theme === "dark", toggleTheme }}>
       {children}
     </ThemeContext.Provider>
   );
 }
-
-export const useTheme = () => {
-  const ctx = useContext(ThemeContext);
-  if (!ctx) throw new Error("useTheme must be used inside ThemeProvider");
-  return ctx;
-};

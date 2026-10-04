@@ -1,136 +1,90 @@
-import { motion } from "framer-motion";
-import { FaBriefcase, FaMapMarkerAlt, FaExternalLinkAlt } from "react-icons/fa";
-import SectionHeading from "../shared/SectionHeading";
+import { useState } from "react";
+import { HiChevronDown } from "react-icons/hi";
+import Section from "../ui/Section";
+import RowItem from "../ui/RowItem";
+import BulletList from "../ui/BulletList";
 import Badge from "../ui/Badge";
+import ExternalLink from "../ui/ExternalLink";
 import { experience } from "../../data/experience";
-import { fadeInUp, staggerContainer, viewportOptions } from "../../animations/variants";
+
+function ProjectBlock({ proj, panelId, defaultOpen }) {
+  const [open, setOpen] = useState(defaultOpen);
+
+  return (
+    <div className="border-t border-line first:border-t-0">
+      <button
+        type="button"
+        onClick={() => setOpen((v) => !v)}
+        aria-expanded={open}
+        aria-controls={panelId}
+        className="w-full flex items-center justify-between gap-4 py-4 text-left group"
+      >
+        <span>
+          <span className="block font-serif text-lg text-ink group-hover:text-accent transition-colors">
+            {proj.name}
+          </span>
+          <span className="block text-sm text-ink-3">{proj.tag}</span>
+        </span>
+        <HiChevronDown
+          size={20}
+          aria-hidden="true"
+          className={`shrink-0 text-ink-3 transition-transform duration-200 ${open ? "rotate-180" : ""}`}
+        />
+      </button>
+
+      {open && (
+        <div id={panelId} className="pb-6">
+          <BulletList items={proj.points} className="mb-4" />
+          <div className="flex flex-wrap gap-2">
+            {proj.stack.map((tech) => (
+              <Badge key={tech}>{tech}</Badge>
+            ))}
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
 
 export default function Experience() {
   return (
-    <section
+    <Section
       id="experience"
-      className="section-padding"
-      style={{ background: "var(--bg-dark)" }}
+      title="Experience"
+      subtitle="Production applications I've helped build and ship."
     >
-      <div className="container-custom">
-        <SectionHeading
-          title="Experience"
-          subtitle="Production applications I've helped build and ship."
-        />
-
-        <motion.div
-          variants={staggerContainer}
-          initial="hidden"
-          whileInView="visible"
-          viewport={viewportOptions}
-          className="max-w-3xl mx-auto space-y-6"
+      {experience.map((item) => (
+        <RowItem
+          key={item.id}
+          meta={
+            <>
+              <p className="font-mono text-sm text-ink-2">{item.duration}</p>
+              {item.location && <p className="text-sm text-ink-3 mt-1">{item.location}</p>}
+            </>
+          }
         >
-          {experience.map((item) => (
-            <motion.div key={item.id} variants={fadeInUp} className="glass-card p-6 sm:p-8">
-              <div className="flex items-start gap-4 mb-6">
-                <div
-                  className="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0"
-                  style={{ background: "color-mix(in srgb, var(--primary) 12%, transparent)" }}
-                >
-                  <FaBriefcase size={20} style={{ color: "var(--primary-light)" }} />
-                </div>
+          <h3 className="text-2xl text-ink">{item.role}</h3>
+          <p className="mt-1 text-ink-2">
+            {item.companyUrl ? (
+              <ExternalLink href={item.companyUrl}>{item.company}</ExternalLink>
+            ) : (
+              item.company
+            )}
+          </p>
+          {item.summary && <p className="mt-4 text-ink-2 max-w-2xl">{item.summary}</p>}
 
-                <div className="flex-1 min-w-0">
-                  <div className="flex flex-wrap items-center justify-between gap-2 mb-1">
-                    <h3 className="font-bold text-lg" style={{ color: "var(--text-primary)" }}>
-                      {item.role}
-                    </h3>
-                    <span
-                      className="text-xs font-mono px-2.5 py-1 rounded-full flex-shrink-0"
-                      style={{
-                        background: "color-mix(in srgb, var(--primary) 12%, transparent)",
-                        color: "var(--primary-light)",
-                      }}
-                    >
-                      {item.duration}
-                    </span>
-                  </div>
-
-                  <p className="font-semibold mb-1" style={{ color: "var(--text-secondary)" }}>
-                    {item.companyUrl ? (
-                      <a
-                        href={item.companyUrl}
-                        target="_blank"
-                        rel="noreferrer"
-                        className="link-hover-accent inline-flex items-center gap-1.5"
-                        style={{ "--link-base": "var(--text-secondary)" }}
-                      >
-                        {item.company} <FaExternalLinkAlt size={10} />
-                      </a>
-                    ) : (
-                      item.company
-                    )}
-                  </p>
-
-                  {item.location && (
-                    <div
-                      className="flex items-center gap-1.5 text-sm mb-3"
-                      style={{ color: "var(--text-muted)" }}
-                    >
-                      <FaMapMarkerAlt size={12} /> {item.location}
-                    </div>
-                  )}
-
-                  {item.summary && (
-                    <p
-                      className="text-sm leading-relaxed"
-                      style={{ color: "var(--text-secondary)" }}
-                    >
-                      {item.summary}
-                    </p>
-                  )}
-                </div>
-              </div>
-
-              <div className="space-y-5 pl-0 sm:pl-16">
-                {item.projects.map((proj) => (
-                  <div
-                    key={proj.name}
-                    className="rounded-xl p-5 border"
-                    style={{
-                      background: "var(--bg-dark-card)",
-                      borderColor: "var(--border-dark)",
-                    }}
-                  >
-                    <div className="flex flex-wrap items-baseline justify-between gap-x-3 gap-y-1 mb-3">
-                      <h4 className="font-semibold" style={{ color: "var(--text-primary)" }}>
-                        {proj.name}
-                      </h4>
-                      <span className="text-xs" style={{ color: "var(--text-muted)" }}>
-                        {proj.tag}
-                      </span>
-                    </div>
-
-                    <ul className="space-y-1.5 mb-4">
-                      {proj.points.map((point) => (
-                        <li
-                          key={point}
-                          className="text-sm leading-relaxed flex gap-2"
-                          style={{ color: "var(--text-secondary)" }}
-                        >
-                          <span style={{ color: "var(--primary-light)" }}>•</span>
-                          {point}
-                        </li>
-                      ))}
-                    </ul>
-
-                    <div className="flex flex-wrap gap-2">
-                      {proj.stack.map((tech) => (
-                        <Badge key={tech}>{tech}</Badge>
-                      ))}
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </motion.div>
-          ))}
-        </motion.div>
-      </div>
-    </section>
+          <div className="mt-6 border-y border-line">
+            {item.projects.map((proj, i) => (
+              <ProjectBlock
+                key={proj.name}
+                proj={proj}
+                panelId={`exp-${item.id}-${i}`}
+                defaultOpen={i === 0}
+              />
+            ))}
+          </div>
+        </RowItem>
+      ))}
+    </Section>
   );
 }

@@ -1,57 +1,45 @@
-// ============================================================
 // TIMELINE / LEARNING JOURNEY DATA
-// Add new milestones to this array — displayed in order
-// ============================================================
+// Add new milestones to this array. They are displayed in order.
 
 export const timeline = [
   {
     id: 1,
-    year: "2022 – 2026",
+    year: "2023 – 2026",
     title: "B.Tech in Electronics & Communication Engineering",
     description:
-      "Completed a four-year undergraduate degree in ECE. Developed strong foundations in logical thinking, problem-solving, and engineering principles.",
-    icon: "FaGraduationCap",
-    type: "education",
+      "Completed a three-year B.Tech in ECE via lateral entry after my Diploma, developing strong foundations in logical thinking, problem-solving, and core engineering principles.",
     tags: ["ECE", "Engineering", "Graduation"],
   },
   {
     id: 2,
-    year: "Early 2026",
+    year: "2024",
     title: "Discovered Software Development",
     description:
-      "During a short-term internship, I was exposed to real-world software development. Watching applications being built from scratch sparked my passion for coding and product development.",
-    icon: "FaLightbulb",
-    type: "milestone",
+      "Gained early exposure to real-world software development through a short-term internship, observing how production applications are designed and built from the ground up. This experience sparked a lasting interest in coding and product development, and marked the start of my continuous learning journey in software engineering.",
     tags: ["Internship", "Discovery", "Turning Point"],
   },
   {
     id: 3,
-    year: "2026",
+    year: "2024",
     title: "Started Learning Web Development",
     description:
-      "Committed to a structured self-learning journey. Began with the fundamentals — HTML, CSS, and JavaScript — building responsive websites and understanding the core of the web.",
-    icon: "FaCode",
-    type: "learning",
+      "Committed to a structured, self-driven learning path, starting with the core web fundamentals: HTML, CSS, and JavaScript. Built responsive websites while developing a solid understanding of how the web works.",
     tags: ["HTML", "CSS", "JavaScript", "Responsive Design"],
   },
   {
     id: 4,
-    year: "2026",
-    title: "Dived into React & Modern Frontend",
+    year: "2025",
+    title: "Moved into React & Modern Frontend",
     description:
-      "Learned React — component architecture, hooks, state management, and the modern JavaScript ecosystem. Built interactive UIs and deployed projects on Vercel.",
-    icon: "FaReact",
-    type: "learning",
+      "Advanced into React and the modern JavaScript ecosystem, learning component architecture, hooks, and state management. Built interactive, user-focused interfaces and deployed projects on Vercel, continually refining my approach with each build.",
     tags: ["React", "Vite", "TanStack Query", "Framer Motion"],
   },
   {
     id: 5,
-    year: "2026",
+    year: "2025",
     title: "Explored Full Stack Development",
     description:
-      "Extended skills to the backend — Node.js, Express.js, REST APIs, MongoDB, and Supabase. Started building full-stack applications with authentication and database integration.",
-    icon: "FaServer",
-    type: "learning",
+      "Expanded my skill set to the backend with Node.js, Express.js, REST APIs, MongoDB, and Supabase. Began building end-to-end full-stack applications with authentication and database integration, strengthening my ability to deliver complete solutions.",
     tags: ["Node.js", "Express.js", "MongoDB", "Supabase", "REST APIs"],
   },
   {
@@ -59,9 +47,7 @@ export const timeline = [
     year: "Jul 2026 – Present",
     title: "Full Stack Developer Intern at NearEstate",
     description:
-      "Joined NearEstate as a Full Stack Developer Intern, contributing to two production real-estate applications — RealView360 and CRM.NearEstate — across frontend, backend, PostgreSQL, security, and deployment.",
-    icon: "FaBriefcase",
-    type: "work",
+      "Joined NearEstate as a Full Stack Developer Intern, contributing to two production real-estate applications, RealView360 and CRM.NearEstate, across frontend, backend, PostgreSQL, security, and deployment. Applying my skills in a real-world environment while continuing to learn and grow with every release.",
     tags: ["Next.js", "Express.js", "PostgreSQL", "Production", "Internship"],
   },
 ];

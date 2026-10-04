@@ -1,31 +1,27 @@
-// ============================================================
-// SOCIAL LINKS DATA
-// ============================================================
-import { FaGithub, FaLinkedin, FaTwitter, FaEnvelope } from "react-icons/fa";
+// SOCIAL LINKS — built from site.config so URLs live in one place.
+// Add `leetcode`, `twitter`, etc. to siteConfig.social and they appear
+// everywhere (footer, contact, command palette) automatically.
+import { FaGithub, FaLinkedin, FaCode, FaXTwitter } from "react-icons/fa6";
+import { HiOutlineMail } from "react-icons/hi";
+import { siteConfig } from "../config/site.config";
 
-export const socialLinks = [
-  {
-    id: "github",
-    label: "GitHub",
-    url: "https://github.com/pokurumohanendra",
-    Icon: FaGithub,
-    color: "#ffffff",
-    hoverColor: "#6e5494",
-  },
-  {
-    id: "linkedin",
-    label: "LinkedIn",
-    url: "https://www.linkedin.com/in/pokuru-mohanendra/",
-    Icon: FaLinkedin,
-    color: "#0A66C2",
-    hoverColor: "#0A66C2",
-  },
-  {
-    id: "email",
-    label: "Email",
-    url: "mailto:mohanendra.pokuru@gmail.com",
-    Icon: FaEnvelope,
-    color: "#EA4335",
-    hoverColor: "#EA4335",
-  },
-];
+const meta = {
+  github: { label: "GitHub", Icon: FaGithub },
+  linkedin: { label: "LinkedIn", Icon: FaLinkedin },
+  leetcode: { label: "LeetCode", Icon: FaCode },
+  twitter: { label: "X (Twitter)", Icon: FaXTwitter },
+};
+
+export const socialLinks = Object.entries(siteConfig.social)
+  .filter(([key, url]) => url && meta[key])
+  .map(([key, url]) => ({ id: key, url, ...meta[key] }));
+
+export const emailLink = {
+  id: "email",
+  label: "Email",
+  url: `mailto:${siteConfig.email}`,
+  Icon: HiOutlineMail,
+};
+
+/** Social links plus email, in display order. */
+export const contactLinks = [...socialLinks, emailLink];

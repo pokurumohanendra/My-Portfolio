@@ -2,56 +2,75 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/png" href="/favicon-mark.png" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <script>
       (function () {
-        var t = localStorage.getItem("portfolio-theme");
-        document.documentElement.setAttribute("data-theme", t === "dark" ? "dark" : "light");
+        var t = null;
+        try {
+          t = localStorage.getItem("portfolio-theme");
+        } catch (e) {}
+        if (t !== "dark" && t !== "light") {
+          t = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+        }
+        document.documentElement.setAttribute("data-theme", t);
       })();
     </script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
     <!-- Primary SEO -->
-    <title>POKURU MOHANENDRA — Full Stack Developer</title>
+    <title>Pokuru Mohanendra | Full Stack Developer</title>
     <meta
       name="description"
-      content="Portfolio of a Full Stack Developer specializing in React, Node.js, Express, MongoDB, and modern web technologies."
+      content="Portfolio of a Full Stack Developer specializing in React, Next.js, Node.js, Express, and PostgreSQL, with production experience building real-estate SaaS applications."
     />
     <meta
       name="keywords"
-      content="full stack developer, react, node.js, express, mongodb, portfolio, web developer"
+      content="full stack developer, react, next.js, node.js, express, postgresql, portfolio"
     />
-    <meta name="author" content="POKURU MOHANENDRA" />
+    <meta name="author" content="Pokuru Mohanendra" />
     <meta name="robots" content="index, follow" />
     <link rel="canonical" href="https://yourportfolio.vercel.app" />
 
     <!-- Open Graph -->
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://yourportfolio.vercel.app" />
-    <meta
-      property="og:title"
-      content="POKURU MOHANENDRA — Full Stack Developer"
-    />
+    <meta property="og:title" content="Pokuru Mohanendra | Full Stack Developer" />
     <meta
       property="og:description"
-      content="Portfolio of a Full Stack Developer specializing in React, Node.js, Express, MongoDB, and modern web technologies."
+      content="Full Stack Developer building production SaaS with React, Next.js, Node.js, and PostgreSQL."
     />
-    <meta property="og:image" content="/og-image.png" />
+    <meta property="og:image" content="https://yourportfolio.vercel.app/og-image.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
 
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image" />
-    <meta
-      name="twitter:title"
-      content="POKURU MOHANENDRA — Full Stack Developer"
-    />
+    <meta name="twitter:title" content="Pokuru Mohanendra | Full Stack Developer" />
     <meta
       name="twitter:description"
-      content="Portfolio of a Full Stack Developer specializing in React, Node.js, and MongoDB."
+      content="Full Stack Developer building production SaaS with React, Next.js, Node.js, and PostgreSQL."
     />
-    <meta name="twitter:image" content="/og-image.png" />
+    <meta name="twitter:image" content="https://yourportfolio.vercel.app/og-image.png" />
 
-    <!-- Theme color for mobile browsers -->
-    <meta name="theme-color" content="#eaf3fc" />
+    <!-- Browser UI colour -->
+    <meta name="theme-color" content="#f3f1ea" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#0d1511" media="(prefers-color-scheme: dark)" />
+
+    <!-- Structured data -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "name": "Pokuru Mohanendra",
+        "jobTitle": "Full Stack Developer",
+        "worksFor": { "@type": "Organization", "name": "NearEstate", "url": "https://nearestate.in" },
+        "address": { "@type": "PostalAddress", "addressLocality": "Hyderabad", "addressCountry": "IN" },
+        "sameAs": [
+          "https://github.com/pokurumohanendra",
+          "https://www.linkedin.com/in/pokuru-mohanendra/"
+        ]
+      }
+    </script>
 
     <!-- Preconnect to Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />

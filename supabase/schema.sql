@@ -1,7 +1,6 @@
 -- ============================================================
 -- Live engagement stats (views / likes / shares) for the portfolio.
--- Run this once in the Supabase SQL editor for your project:
--- https://supabase.com/dashboard/project/rwlgdyeypwovpqgpfvgl/sql/new
+-- Run this once in the SQL editor of your Supabase project.
 -- ============================================================
 
 create table if not exists public.site_engagement (

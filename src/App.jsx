@@ -1,10 +1,8 @@
-import { useState, useEffect } from "react";
+import { MotionConfig } from "framer-motion";
 import { HelmetProvider } from "react-helmet-async";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ThemeProvider } from "./context/ThemeContext";
-import LoadingScreen from "./components/layout/LoadingScreen";
 import AppRouter from "./routes/AppRouter";
-import { siteConfig } from "./config/site.config";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -13,19 +11,13 @@ const queryClient = new QueryClient({
 });
 
 export default function App() {
-  const [isLoading, setIsLoading] = useState(true);
-
-  useEffect(() => {
-    const timer = setTimeout(() => setIsLoading(false), 1800);
-    return () => clearTimeout(timer);
-  }, []);
-
   return (
     <HelmetProvider>
       <QueryClientProvider client={queryClient}>
         <ThemeProvider>
-          <LoadingScreen isLoading={isLoading} />
-          {!isLoading && <AppRouter />}
+          <MotionConfig reducedMotion="user">
+            <AppRouter />
+          </MotionConfig>
         </ThemeProvider>
       </QueryClientProvider>
     </HelmetProvider>

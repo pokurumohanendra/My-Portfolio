@@ -1,6 +1,4 @@
-// ============================================================
 // EXPERIENCE DATA — professional roles, most recent first
-// ============================================================
 
 export const experience = [
   {
@@ -8,7 +6,7 @@ export const experience = [
     role: "Full Stack Developer Intern",
     company: "NearEstate",
     companyUrl: "https://nearestate.in",
-    location: "Tirupati, India",
+    location: "Hyderabad, India",
     duration: "Jul 2026 – Present",
     summary:
       "Contributed to two production real-estate applications, working across frontend development, backend APIs, PostgreSQL, authentication, security, third-party integrations, and deployment.",
@@ -35,7 +33,5 @@ export const experience = [
           "Improved core CRM workflows including contact pagination, full-table search, CSV imports, follow-ups, password reset, and inbox-to-contact flows; contributed to production deployment using Docker and GitHub Actions.",
         ],
       },
-    ],
-    icon: "FaBriefcase",
-  },
+    ],  },
 ];

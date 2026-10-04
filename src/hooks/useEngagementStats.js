@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from "react";
-import { supabase, isSupabaseConfigured } from "../lib/supabaseClient";
+import { isSupabaseConfigured, loadSupabase } from "../lib/supabaseConfig";
 
 const ROW_ID = 1;
 const VIEWED_KEY = "engagement:viewed";
@@ -10,8 +10,9 @@ const initialStats = { views: 0, likes: 0, shares: 0 };
 /**
  * Live views/likes/shares for the whole site, backed by a single-row
  * Supabase table. All writes go through RPCs (see supabase/schema.sql)
- * that move a counter by exactly 1 — the client never sends raw values.
+ * that move a counter by exactly 1; the client never sends raw values.
  * A postgres_changes subscription keeps every open tab/visitor in sync.
+ * The Supabase library is loaded on demand, only when it is configured.
  */
 export function useEngagementStats() {
   const [stats, setStats] = useState(initialStats);
@@ -25,9 +26,14 @@ export function useEngagementStats() {
     setLiked(localStorage.getItem(LIKED_KEY) === "1");
 
     let cancelled = false;
+    let client = null;
+    let channel = null;
 
     (async () => {
-      const { data, error } = await supabase
+      client = await loadSupabase();
+      if (cancelled || !client) return;
+
+      const { data, error } = await client
         .from("site_engagement")
         .select("views, likes, shares")
         .eq("id", ROW_ID)
@@ -38,22 +44,23 @@ export function useEngagementStats() {
 
       if (!error && sessionStorage.getItem(VIEWED_KEY) !== "1") {
         sessionStorage.setItem(VIEWED_KEY, "1");
-        await supabase.rpc("increment_views");
+        await client.rpc("increment_views");
       }
-    })();
 
-    const channel = supabase
-      .channel("site-engagement-live")
-      .on(
-        "postgres_changes",
-        { event: "UPDATE", schema: "public", table: "site_engagement", filter: `id=eq.${ROW_ID}` },
-        (payload) => setStats(payload.new),
-      )
-      .subscribe();
+      if (cancelled) return;
+      channel = client
+        .channel("site-engagement-live")
+        .on(
+          "postgres_changes",
+          { event: "UPDATE", schema: "public", table: "site_engagement", filter: `id=eq.${ROW_ID}` },
+          (payload) => setStats(payload.new),
+        )
+        .subscribe();
+    })();
 
     return () => {
       cancelled = true;
-      supabase.removeChannel(channel);
+      if (client && channel) client.removeChannel(channel);
     };
   }, []);
 
@@ -65,7 +72,8 @@ export function useEngagementStats() {
     setLiked(nextLiked);
     setStats((s) => ({ ...s, likes: Math.max(0, s.likes + (nextLiked ? 1 : -1)) }));
 
-    const { error } = await supabase.rpc(nextLiked ? "increment_likes" : "decrement_likes");
+    const client = await loadSupabase();
+    const { error } = await client.rpc(nextLiked ? "increment_likes" : "decrement_likes");
     if (error) {
       setLiked(!nextLiked);
       setStats((s) => ({ ...s, likes: Math.max(0, s.likes + (nextLiked ? -1 : 1)) }));
@@ -105,7 +113,8 @@ export function useEngagementStats() {
     }
 
     setStats((s) => ({ ...s, shares: s.shares + 1 }));
-    await supabase.rpc("increment_shares");
+    const client = await loadSupabase();
+    await client.rpc("increment_shares");
     return outcome;
   }, []);
 

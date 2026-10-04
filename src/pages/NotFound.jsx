@@ -1,43 +1,23 @@
-import { Link } from "react-router-dom";
-import { motion } from "framer-motion";
-import { FaArrowLeft } from "react-icons/fa";
+import Button from "../components/ui/Button";
+import Seo from "../components/shared/Seo";
+import { useSectionNav } from "../hooks/useSectionNav";
 
 export default function NotFound() {
+  const { goToTop } = useSectionNav();
+
   return (
-    <div
-      className="min-h-screen flex flex-col items-center justify-center gap-6 text-center px-4"
-      style={{ background: "var(--bg-dark)" }}
-    >
-      <motion.div
-        initial={{ scale: 0.5, opacity: 0 }}
-        animate={{ scale: 1, opacity: 1 }}
-        transition={{ type: "spring", stiffness: 200 }}
-        className="text-8xl font-black gradient-text"
-      >
-        404
-      </motion.div>
-      <motion.p
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.2 }}
-        className="text-xl font-medium"
-        style={{ color: "var(--text-secondary)" }}
-      >
-        Page not found.
-      </motion.p>
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.3 }}
-      >
-        <Link
-          to="/"
-          className="flex items-center gap-2 px-6 py-3 rounded-xl text-sm font-semibold text-white"
-          style={{ background: "var(--gradient-primary)" }}
-        >
-          <FaArrowLeft size={13} /> Go Home
-        </Link>
-      </motion.div>
-    </div>
+    <section className="min-h-[70vh] flex items-center">
+      <Seo title="Page not found" />
+      <div className="wrap py-32">
+        <p className="eyebrow mb-4">Error 404</p>
+        <h1 className="text-5xl sm:text-6xl text-ink">Page not found</h1>
+        <p className="mt-4 text-ink-2 text-lg max-w-md">
+          The page you're looking for doesn't exist or has moved.
+        </p>
+        <Button onClick={goToTop} className="mt-8">
+          Back to the portfolio
+        </Button>
+      </div>
+    </section>
   );
 }

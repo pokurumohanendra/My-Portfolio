@@ -1,32 +1,19 @@
-import { motion, AnimatePresence } from "framer-motion";
 import { HiArrowUp } from "react-icons/hi2";
 import { useScrollProgress } from "../../hooks/useScrollProgress";
 
 export default function BackToTop() {
-  const progress = useScrollProgress();
-  const visible = progress > 20;
+  const visible = useScrollProgress() > 20;
 
   return (
-    <AnimatePresence>
-      {visible && (
-        <motion.button
-          key="back-to-top"
-          initial={{ opacity: 0, scale: 0.6 }}
-          animate={{ opacity: 1, scale: 1 }}
-          exit={{ opacity: 0, scale: 0.6 }}
-          whileHover={{ scale: 1.1 }}
-          whileTap={{ scale: 0.9 }}
-          onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-          className="fixed bottom-8 right-8 z-50 w-12 h-12 rounded-xl flex items-center justify-center text-white shadow-lg"
-          style={{
-            background: "var(--gradient-primary)",
-            boxShadow: "0 4px 20px color-mix(in srgb, var(--primary) 40%, transparent)",
-          }}
-          aria-label="Back to top"
-        >
-          <HiArrowUp size={20} />
-        </motion.button>
-      )}
-    </AnimatePresence>
+    <button
+      onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+      aria-label="Back to top"
+      tabIndex={visible ? 0 : -1}
+      className={`fixed bottom-6 right-6 z-40 w-10 h-10 rounded-md flex items-center justify-center border border-line bg-surface text-ink-2 hover:text-ink hover:border-ink-3 transition-all duration-200 ${
+        visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-2 pointer-events-none"
+      }`}
+    >
+      <HiArrowUp size={18} />
+    </button>
   );
 }

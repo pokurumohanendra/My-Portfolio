@@ -1,205 +1,178 @@
+import { useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
-import { motion } from "framer-motion";
 import { FaGithub, FaExternalLinkAlt, FaArrowLeft } from "react-icons/fa";
-import { HiLightBulb, HiCode, HiChip, HiPuzzle } from "react-icons/hi";
 import Badge from "../components/ui/Badge";
+import Button from "../components/ui/Button";
+import Seo from "../components/shared/Seo";
+import ProjectThumb from "../components/shared/ProjectThumb";
+import ArchitectureDiagram from "../components/shared/ArchitectureDiagram";
 import { projects } from "../data/projects";
-import { siteConfig } from "../config/site.config";
-import { fadeInUp, staggerContainer, viewportOptions } from "../animations/variants";
+import { caseStudies } from "../data/caseStudies";
+import { repoLinks } from "../lib/projects";
+
+function DetailBlock({ title, children }) {
+  return (
+    <section className="py-8 border-t border-line first:border-t-0 first:pt-0">
+      <h2 className="text-2xl text-ink mb-3">{title}</h2>
+      {children}
+    </section>
+  );
+}
 
 export default function ProjectDetail() {
   const { id } = useParams();
-  const project = projects.find((p) => p.id === id);
+  const index = projects.findIndex((p) => p.id === id);
+  const project = projects[index];
+
+  useEffect(() => {
+    window.scrollTo({ top: 0 });
+  }, [id]);
 
   if (!project) {
     return (
-      <div
-        className="min-h-screen flex flex-col items-center justify-center gap-4"
-        style={{ background: "var(--bg-dark)" }}
-      >
-        <h1 className="text-3xl font-bold" style={{ color: "var(--text-primary)" }}>
-          Project Not Found
-        </h1>
-        <Link
-          to="/"
-          className="flex items-center gap-2 text-sm font-medium"
-          style={{ color: "var(--primary-light)" }}
-        >
-          <FaArrowLeft size={12} /> Back to Portfolio
-        </Link>
-      </div>
+      <section className="min-h-[70vh] flex items-center">
+        <Seo title="Project not found" />
+        <div className="wrap py-32">
+          <p className="eyebrow mb-4">Not found</p>
+          <h1 className="text-4xl text-ink">That project doesn't exist</h1>
+          <Link to="/#projects" className="btn btn-solid mt-8">
+            <FaArrowLeft size={12} aria-hidden="true" /> Back to projects
+          </Link>
+        </div>
+      </section>
     );
   }
 
+  const next = projects[(index + 1) % projects.length];
+  const study = caseStudies[project.id];
+  const repos = repoLinks(project);
+
+  const textSections = [
+    { title: "Overview", content: project.description },
+    { title: "Problem", content: project.problem },
+    { title: "Solution", content: project.solution },
+  ].filter((s) => s.content);
+
+  const closingSections = [
+    { title: "Challenges", content: project.challenges },
+    { title: "What I learned", content: project.learnings },
+    { title: "Next steps", content: project.futureImprovements },
+  ].filter((s) => s.content);
+
   return (
-    <div
-      className="min-h-screen pt-20"
-      style={{ background: "var(--bg-dark)" }}
-    >
-      {/* Header */}
-      <section
-        className="py-16 relative overflow-hidden"
-        style={{ background: "var(--bg-dark-surface)" }}
-      >
-        <div className="bg-ambient-glow absolute inset-0 pointer-events-none" />
-        <div className="container-custom relative z-10">
-          {/* Back button */}
-          <motion.div
-            initial={{ opacity: 0, x: -20 }}
-            animate={{ opacity: 1, x: 0 }}
-            className="mb-8"
-          >
-            <Link
-              to="/"
-              className="inline-flex items-center gap-2 text-sm font-medium px-4 py-2 rounded-xl border transition-all duration-200 hover-surface"
-              style={{
-                color: "var(--text-secondary)",
-                borderColor: "var(--border-dark)",
-              }}
-            >
-              <FaArrowLeft size={12} /> Back to Portfolio
-            </Link>
-          </motion.div>
+    <article className="pt-28 pb-20 md:pt-36">
+      <Seo title={project.title} description={project.shortDesc} />
+      <div className="wrap">
+        <Link
+          to="/#projects"
+          className="inline-flex items-center gap-2 text-sm text-ink-2 hover:text-accent transition-colors"
+        >
+          <FaArrowLeft size={11} aria-hidden="true" /> All projects
+        </Link>
 
-          <motion.div
-            variants={staggerContainer}
-            initial="hidden"
-            animate="visible"
-          >
-            {/* Category badge */}
-            <motion.div variants={fadeInUp} className="mb-4">
-              <Badge>{project.category}</Badge>
-            </motion.div>
+        <header className="mt-8 max-w-3xl">
+          <p className="eyebrow mb-3">
+            <span className="eyebrow-accent">{project.type}</span> · {project.category} ·{" "}
+            {project.year}
+          </p>
+          <h1 className="text-4xl sm:text-6xl text-ink">{project.title}</h1>
+          <p className="mt-5 text-xl text-ink-2 leading-relaxed">{project.shortDesc}</p>
 
-            {/* Title */}
-            <motion.h1
-              variants={fadeInUp}
-              className="text-3xl sm:text-5xl font-black mb-4"
-              style={{ color: "var(--text-primary)" }}
-            >
-              {project.title}
-            </motion.h1>
+          <div className="mt-8 flex flex-wrap gap-3">
+            {project.demo && (
+              <Button href={project.demo} target="_blank">
+                Visit live site <FaExternalLinkAlt size={11} aria-hidden="true" />
+              </Button>
+            )}
+            {repos.map((r) => (
+              <Button key={r.url} href={r.url} target="_blank" variant="line">
+                <FaGithub size={14} aria-hidden="true" /> {r.label}
+              </Button>
+            ))}
+          </div>
+          {project.demo && project.demoNote && (
+            <p className="mt-3 text-sm text-ink-3">{project.demoNote}</p>
+          )}
+        </header>
 
-            <motion.p
-              variants={fadeInUp}
-              className="text-lg max-w-2xl mb-6"
-              style={{ color: "var(--text-secondary)" }}
-            >
-              {project.shortDesc}
-            </motion.p>
+        <ProjectThumb project={project} className="mt-12 max-w-4xl" />
 
-            {/* Links */}
-            <motion.div variants={fadeInUp} className="flex flex-wrap gap-3">
-              {project.github && (
-                <a
-                  href={project.github}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-semibold border transition-all duration-200 hover-surface"
-                  style={{
-                    color: "var(--text-primary)",
-                    borderColor: "var(--border-dark)",
-                  }}
-                >
-                  <FaGithub size={15} /> View Code
-                </a>
-              )}
-              {project.demo && (
-                <a
-                  href={project.demo}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-semibold text-white"
-                  style={{ background: "var(--gradient-primary)" }}
-                >
-                  <FaExternalLinkAlt size={13} /> Live Demo
-                </a>
-              )}
-            </motion.div>
-          </motion.div>
-        </div>
-      </section>
+        {project.highlights && (
+          <ul className="mt-10 grid gap-px sm:grid-cols-3 max-w-4xl border border-line bg-line rounded-lg overflow-hidden">
+            {project.highlights.map((h) => (
+              <li key={h} className="bg-surface p-5 text-ink font-medium">
+                {h}
+              </li>
+            ))}
+          </ul>
+        )}
 
-      {/* Content */}
-      <section className="py-16">
-        <div className="container-custom">
-          <div className="grid lg:grid-cols-3 gap-10">
-            {/* Main content */}
-            <div className="lg:col-span-2 space-y-8">
-              {[
-                { icon: HiLightBulb, title: "Problem", content: project.problem },
-                { icon: HiCode, title: "Solution", content: project.solution },
-                { icon: HiCode, title: "Description", content: project.description },
-                { icon: HiPuzzle, title: "Challenges & Learnings", content: project.challenges },
-                { icon: HiChip, title: "Future Improvements", content: project.futureImprovements },
-              ].map((section) => (
-                <motion.div
-                  key={section.title}
-                  variants={fadeInUp}
-                  initial="hidden"
-                  whileInView="visible"
-                  viewport={viewportOptions}
-                  className="glass-card p-6"
-                >
-                  <h2 className="font-bold text-lg mb-3 flex items-center gap-2" style={{ color: "var(--text-primary)" }}>
-                    <section.icon style={{ color: "var(--primary-light)" }} />
-                    {section.title}
-                  </h2>
-                  <p className="leading-relaxed" style={{ color: "var(--text-secondary)" }}>
-                    {section.content}
-                  </p>
-                </motion.div>
+        <div className="mt-16 grid gap-12 lg:grid-cols-[1fr_16rem] lg:gap-20">
+          <div className="min-w-0">
+            {textSections.map((s) => (
+              <DetailBlock key={s.title} title={s.title}>
+                <p className="text-ink-2 leading-relaxed max-w-2xl">{s.content}</p>
+              </DetailBlock>
+            ))}
+          </div>
+
+          <aside className="lg:sticky lg:top-28 self-start">
+            <h2 className="eyebrow mb-3">Tech stack</h2>
+            <div className="flex flex-wrap gap-2">
+              {project.techStack.map((tech) => (
+                <Badge key={tech}>{tech}</Badge>
               ))}
             </div>
-
-            {/* Sidebar */}
-            <div className="space-y-6">
-              {/* Tech Stack */}
-              <motion.div
-                variants={fadeInUp}
-                initial="hidden"
-                whileInView="visible"
-                viewport={viewportOptions}
-                className="glass-card p-6"
-              >
-                <h3 className="font-bold mb-4" style={{ color: "var(--text-primary)" }}>
-                  Tech Stack
-                </h3>
-                <div className="flex flex-wrap gap-2">
-                  {project.techStack.map((tech) => (
-                    <Badge key={tech}>{tech}</Badge>
-                  ))}
-                </div>
-              </motion.div>
-
-              {/* Year */}
-              <motion.div
-                variants={fadeInUp}
-                initial="hidden"
-                whileInView="visible"
-                viewport={viewportOptions}
-                className="glass-card p-6"
-              >
-                <h3 className="font-bold mb-2" style={{ color: "var(--text-primary)" }}>
-                  Year
-                </h3>
-                <p className="font-mono gradient-text text-2xl font-bold">{project.year}</p>
-              </motion.div>
-            </div>
-          </div>
-
-          {/* Back button at bottom */}
-          <div className="mt-12 text-center">
-            <Link
-              to="/"
-              className="inline-flex items-center gap-2 px-6 py-3 rounded-xl text-sm font-semibold border transition-all duration-200 hover-surface"
-              style={{ color: "var(--text-secondary)", borderColor: "var(--border-dark)" }}
-            >
-              <FaArrowLeft size={12} /> Back to All Projects
-            </Link>
-          </div>
+          </aside>
         </div>
-      </section>
-    </div>
+
+        {study?.architecture && (
+          <section className="mt-4 py-8 border-t border-line">
+            <h2 className="text-2xl text-ink mb-5">Architecture</h2>
+            <ArchitectureDiagram
+              label={`${project.title} architecture`}
+              stages={study.architecture.stages}
+              caption={study.architecture.caption}
+            />
+          </section>
+        )}
+
+        <div className="max-w-3xl min-w-0">
+          {study?.decisions && (
+            <DetailBlock title="Key decisions">
+              <ul className="space-y-5 max-w-2xl">
+                {study.decisions.map((d) => (
+                  <li key={d.title}>
+                    <h3 className="text-lg text-ink">{d.title}</h3>
+                    <p className="mt-1 text-ink-2 leading-relaxed">{d.detail}</p>
+                  </li>
+                ))}
+              </ul>
+            </DetailBlock>
+          )}
+
+          {closingSections.map((s) => (
+            <DetailBlock key={s.title} title={s.title}>
+              <p className="text-ink-2 leading-relaxed max-w-2xl">{s.content}</p>
+            </DetailBlock>
+          ))}
+        </div>
+
+        <nav
+          aria-label="More projects"
+          className="mt-20 pt-8 border-t border-line flex items-center justify-between gap-4"
+        >
+          <Link to="/#projects" className="link text-sm">
+            Back to all projects
+          </Link>
+          <Link to={`/projects/${next.id}`} className="text-right group">
+            <span className="eyebrow block">Next project</span>
+            <span className="font-serif text-xl text-ink group-hover:text-accent transition-colors">
+              {next.title} →
+            </span>
+          </Link>
+        </nav>
+      </div>
+    </article>
   );
 }
