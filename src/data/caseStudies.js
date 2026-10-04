@@ -127,7 +127,7 @@ export const caseStudies = {
           nodes: [
             { name: "10 route modules", note: "Classes, departments, enrollments, subjects, users and more" },
             { name: "better-auth", note: "Authentication" },
-            { name: "Arcjet", note: "Request protection middleware" },
+            { name: "Arcjet", note: "Shield, bot detection, per-role rate limits" },
           ],
         },
         {
@@ -152,6 +152,11 @@ export const caseStudies = {
         title: "Schema changes as migrations",
         detail:
           "Drizzle generates versioned SQL migrations, so the database structure is reproducible rather than edited by hand.",
+      },
+      {
+        title: "Role-based access in the UI and on the API",
+        detail:
+          "Users are students, teachers or admins. The interface hides actions a role cannot use, routes check the role again on the server, and rate limits differ per role.",
       },
       {
         title: "Auth and request protection as middleware",

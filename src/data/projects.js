@@ -87,7 +87,7 @@ export const projects = [
     shortDesc:
       "A TypeScript PERN app for managing departments, subjects, classes, users and enrollments, with authentication and a dashboard.",
     description:
-      "An end-to-end classroom management application on the PERN stack, written in TypeScript. A Refine and shadcn/ui admin interface provides create, edit, list and detail screens with filtering, sorting and pagination, backed by an Express API with Drizzle ORM migrations on PostgreSQL, better-auth authentication (email, Google and GitHub sign-in), Arcjet request protection and Cloudinary uploads. The frontend is deployed on Vercel.",
+      "An end-to-end classroom management application on the PERN stack, written in TypeScript. A Refine and shadcn/ui admin interface provides create, edit, list and detail screens with filtering, sorting and pagination, backed by an Express API with Drizzle ORM migrations on PostgreSQL, better-auth authentication, Arcjet request protection and Cloudinary uploads. Three roles (admin, teacher and student) control what each user can do. The frontend is deployed on Vercel.",
     problem:
       "Schools need one place to manage departments, subjects, classes and who is enrolled where, without spreadsheets or separate tools for each.",
     solution:
@@ -108,7 +108,7 @@ export const projects = [
     highlights: [
       "TypeScript on both client and API",
       "10 REST route modules",
-      "4 versioned database migrations",
+      "3 roles with per-role rate limits",
     ],
     repos: [
       { label: "Frontend code", url: "https://github.com/pokurumohanendra/Classroom-Frontend" },
@@ -118,7 +118,7 @@ export const projects = [
     demo: "https://classroom-frontend-blue.vercel.app/",
     demoNote: "The live app opens at a sign-in screen. Use Sign up to create an account and explore.",
     futureImprovements:
-      "Add automated tests for the API routes, role-based permissions per screen, and a README with setup steps and screenshots.",
+      "Add automated tests for the API routes and generate API documentation.",
     year: 2026,
   },
   {
