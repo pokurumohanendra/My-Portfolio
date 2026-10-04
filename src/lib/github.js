@@ -10,8 +10,7 @@ export const githubUsername = () => {
 };
 
 /**
- * Public, non-fork, non-archived repositories (minus any in siteConfig.hiddenRepos),
- * most recently pushed first.
+ * Public, non-fork, non-archived repositories, most recently pushed first.
  * Uses GitHub's unauthenticated REST API (60 requests/hour per visitor IP).
  */
 export async function fetchRepos(username, signal) {
@@ -20,10 +19,9 @@ export async function fetchRepos(username, signal) {
     { signal, headers: { Accept: "application/vnd.github+json" } },
   );
   if (!res.ok) throw new Error(`GitHub responded ${res.status}`);
-  const hidden = new Set((siteConfig.hiddenRepos ?? []).map((n) => n.toLowerCase()));
   const repos = await res.json();
   return repos
-    .filter((r) => !r.fork && !r.archived && !hidden.has(r.name.toLowerCase()))
+    .filter((r) => !r.fork && !r.archived)
     .sort((a, b) => new Date(b.pushed_at) - new Date(a.pushed_at));
 }
 

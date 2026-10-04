@@ -52,8 +52,6 @@ Everything visible comes from a data file, so no component changes are needed.
 | Section order or nav labels | `src/data/navigation.js` |
 | Colours | CSS variables at the top of `src/index.css` |
 
-To keep a repository out of the live GitHub block, add its name to `hiddenRepos` in the same file.
-
 Adding `leetcode` or `twitter` to `siteConfig.social` shows the link in the footer, contact section and command palette automatically.
 
 ### Project screenshots
