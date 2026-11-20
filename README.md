@@ -56,7 +56,7 @@ Adding `leetcode` or `twitter` to `siteConfig.social` shows the link in the foot
 
 ### Project screenshots
 
-Put a 1280×800 image in `public/projects/` and set `image: "/projects/<id>.jpg"` on the project. Projects without an image show a typographic placeholder.
+Put a 1280×800 WebP image in `public/projects/` and set `image: "/projects/<id>.webp"` on the project. Projects without an image show a typographic placeholder.
 
 ## Scripts
 

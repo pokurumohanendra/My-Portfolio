@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://mohanendra-pokuru-portfolio-website.netlify.app/sitemap.xml
+Sitemap: https://pokuru-mohanendra.is-a.dev/sitemap.xml

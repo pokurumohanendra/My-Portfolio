@@ -9,7 +9,7 @@ export const siteConfig = {
     "Growing toward AI and Forward Deployed Engineering by combining full-stack delivery with customer-facing problem solving.",
   location: "Hyderabad, India",
   email: "mohanendra.pokuru@gmail.com",
-  siteUrl: "https://mohanendra-pokuru-portfolio-website.netlify.app",
+  siteUrl: "https://pokuru-mohanendra.is-a.dev",
   resumeUrl: "/Pokuru_Mohanendra_Resume.pdf",
 
   // Set to false to hide the availability badge in the Hero section

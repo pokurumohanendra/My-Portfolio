@@ -20,7 +20,7 @@ export const education = [
   },
   {
     id: 2,
-    logo: "/logos/govt-polytechnic-atmakur.png",
+    logo: "/logos/govt-polytechnic-atmakur.webp",
     mark: "GPT",
     degree: "Diploma, Electronics and Communications Engineering",
     institution: "Government Polytechnic, Atmakur (SBTET, Andhra Pradesh)",
@@ -33,7 +33,7 @@ export const education = [
   },
   {
     id: 3,
-    logo: "/logos/aits-tirupati.png",
+    logo: "/logos/aits-tirupati.webp",
     mark: "AITS",
     degree: "Bachelor of Technology, Electronics and Communication Engineering",
     institution: "Annamacharya Institute of Technology & Sciences, Tirupati",
