@@ -45,8 +45,9 @@ export default function About() {
         <Reveal className="space-y-5 prose-body text-lg">
           <p>
             I'm a full stack developer with production experience building real-estate SaaS
-            applications. At NearEstate I work across two live products: RealView360, a property
-            discovery platform, and CRM.NearEstate, a multi-tenant real estate CRM.
+            applications. I joined NearEstate as an intern in July 2026 and transitioned to a
+            full-time Full Stack Developer role in November 2026. I work across two live products:
+            RealView360, a property discovery platform, and CRM.NearEstate, a multi-tenant real estate CRM.
           </p>
           <p>
             My day-to-day covers REST APIs, authentication and authorization, and payment and
@@ -58,9 +59,14 @@ export default function About() {
             for a production authentication bypass, and customer-facing features from search and
             virtual tours to billing and messaging.
           </p>
+          <p>
+            I'm now growing toward AI and Forward Deployed Engineering: working closely with users,
+            understanding operational problems, and combining full-stack systems with practical AI
+            capabilities to deliver solutions in real environments.
+          </p>
 
           <Button href={siteConfig.resumeUrl} download variant="line" className="mt-8">
-            <FaDownload size={12} aria-hidden="true" /> Download résumé
+            <FaDownload size={12} aria-hidden="true" /> Download Resume
           </Button>
         </Reveal>
 

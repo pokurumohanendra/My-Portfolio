@@ -33,7 +33,7 @@ src/
 └── routes/        AppRouter
 public/
 ├── projects/      project screenshots (1280×800 JPEG)
-├── og-image.png   social preview (1200×630)
+├── og-image-v2.jpg social preview (1200×630)
 └── Pokuru_Mohanendra_Resume.pdf
 ```
 
@@ -72,6 +72,13 @@ npm run lint      # oxlint
 
 Copy `.env.example` to `.env` and add your Supabase URL and anon key to enable the live counter. Without them the counter is hidden. The table and functions are in `supabase/schema.sql`.
 
+To enable direct contact-form delivery, configure an EmailJS template with `from_name`,
+`reply_to`, `subject`, `message`, and `to_email`, then set the three `VITE_EMAILJS_*`
+values listed in `.env.example`. Without them, the form falls back to a pre-filled draft in
+the visitor's default email application.
+
 ## Deployment
 
-Deploy to Vercel or Netlify. Before going live, replace `https://yourportfolio.vercel.app` in `index.html`, `src/config/site.config.js` and `public/robots.txt` with the real domain so canonical links and the social preview resolve.
+Deploy to Netlify so the cached GitHub activity function in `netlify/functions/` is available.
+When moving to a custom domain, update `SITE_URL` in the Netlify build environment; the SEO build
+script uses it for canonical links, robots, and the sitemap.

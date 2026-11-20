@@ -19,6 +19,9 @@ export default function GitHubActivity() {
     queryFn: ({ signal }) => fetchRepos(username, signal),
     enabled: Boolean(username),
     staleTime: 1000 * 60 * 30,
+    refetchInterval: 1000 * 60 * 30,
+    refetchOnMount: "always",
+    refetchOnWindowFocus: true,
     retry: 0,
   });
 
@@ -44,6 +47,10 @@ export default function GitHubActivity() {
               </>
             )}
           </p>
+          <p className="mt-2 max-w-2xl text-sm leading-relaxed text-ink-3">
+            Live public work from GitHub, ordered by the latest repository update. Details and activity
+            refresh automatically every 30 minutes while this page is open.
+          </p>
         </div>
         <ExternalLink href={siteConfig.social.github} className="link inline-flex items-center gap-2 text-sm">
           <FaGithub aria-hidden="true" /> View profile
@@ -65,12 +72,14 @@ export default function GitHubActivity() {
                   </span>
                 )}
               </span>
-              {repo.description && (
-                <span className="mt-2 block text-sm text-ink-2 line-clamp-2">{repo.description}</span>
-              )}
+              <span className="mt-2 block text-sm leading-relaxed text-ink-2 line-clamp-3">
+                {repo.description || "Open the repository to explore the source code and implementation details."}
+              </span>
               <span className="mt-4 flex items-center gap-3 text-xs text-ink-3">
                 {repo.language && <span className="tag">{repo.language}</span>}
-                <span>Updated {timeAgo(repo.pushed_at)}</span>
+                <span title={new Date(repo.updated_at).toLocaleString()}>
+                  Updated {timeAgo(repo.updated_at)}
+                </span>
               </span>
             </ExternalLink>
           </li>

@@ -45,9 +45,9 @@ export const timeline = [
   {
     id: 6,
     year: "Jul 2026 – Present",
-    title: "Full Stack Developer Intern at NearEstate",
+    title: "Intern to Full-Time Developer at NearEstate",
     description:
-      "Joined NearEstate as a Full Stack Developer Intern, contributing to two production real-estate applications, RealView360 and CRM.NearEstate, across frontend, backend, PostgreSQL, security, and deployment. Applying my skills in a real-world environment while continuing to learn and grow with every release.",
-    tags: ["Next.js", "Express.js", "PostgreSQL", "Production", "Internship"],
+      "Joined NearEstate as a Full Stack Developer Intern from July to October 2026, then transitioned to a full-time Full Stack Developer role in November 2026. Continue contributing to RealView360 and CRM.NearEstate across frontend, backend, PostgreSQL, security, integrations, and deployment.",
+    tags: ["Next.js", "Express.js", "PostgreSQL", "Production", "Career progression"],
   },
 ];

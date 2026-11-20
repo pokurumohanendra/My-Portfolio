@@ -10,6 +10,7 @@ export default function ProjectThumb({ project, className = "" }) {
           src={project.image}
           alt={`${project.title} homepage preview`}
           loading="lazy"
+          decoding="async"
           width="1280"
           height="800"
         />

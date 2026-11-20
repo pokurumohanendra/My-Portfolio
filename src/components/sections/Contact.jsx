@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
+import emailjs from "@emailjs/browser";
 import Section from "../ui/Section";
 import Button from "../ui/Button";
 import ExternalLink from "../ui/ExternalLink";
@@ -7,16 +8,21 @@ import Reveal from "../shared/Reveal";
 import { siteConfig } from "../../config/site.config";
 import { socialLinks } from "../../data/socialLinks";
 
-function buildGmailComposeUrl({ name, email, subject, message }) {
+function buildMailtoUrl({ name, email, subject, message }) {
   const params = new URLSearchParams({
-    view: "cm",
-    fs: "1",
-    to: siteConfig.email,
-    su: subject,
+    subject,
     body: `${message}\n\n${name} (${email})`,
   });
-  return `https://mail.google.com/mail/?${params.toString()}`;
+  return `mailto:${siteConfig.email}?${params.toString()}`;
 }
+
+const emailConfig = {
+  serviceId: import.meta.env.VITE_EMAILJS_SERVICE_ID,
+  templateId: import.meta.env.VITE_EMAILJS_TEMPLATE_ID,
+  publicKey: import.meta.env.VITE_EMAILJS_PUBLIC_KEY,
+};
+const directEmailEnabled = Object.values(emailConfig).every(Boolean);
+const FEEDBACK_DURATION = 6000;
 
 const hostAndPath = (url) => url.replace(/^https?:\/\/(www\.)?/, "").replace(/\/$/, "");
 
@@ -36,19 +42,61 @@ function Field({ id, label, error, children }) {
 
 export default function Contact() {
   const [submitted, setSubmitted] = useState(false);
+  const [submitError, setSubmitError] = useState("");
   const {
     register,
     handleSubmit,
     reset,
-    formState: { errors },
+    formState: { errors, isSubmitting },
   } = useForm();
 
-  const onSubmit = (data) => {
-    window.open(buildGmailComposeUrl(data), "_blank", "noopener,noreferrer");
+  const showSubmittedState = () => {
     setSubmitted(true);
-    reset();
-    setTimeout(() => setSubmitted(false), 6000);
+    window.setTimeout(() => setSubmitted(false), FEEDBACK_DURATION);
   };
+
+  const onSubmit = async (data) => {
+    setSubmitError("");
+    if (!directEmailEnabled) {
+      window.location.href = buildMailtoUrl(data);
+      showSubmittedState();
+      return;
+    }
+
+    try {
+      await emailjs.send(
+        emailConfig.serviceId,
+        emailConfig.templateId,
+        {
+          from_name: data.name,
+          reply_to: data.email,
+          subject: data.subject,
+          message: data.message,
+          to_email: siteConfig.email,
+        },
+        { publicKey: emailConfig.publicKey },
+      );
+      showSubmittedState();
+      reset();
+    } catch {
+      setSubmitError(
+        "The message could not be sent. Please email me directly using the address on this page.",
+      );
+    }
+  };
+
+  const submitLabel = isSubmitting
+    ? "Sending…"
+    : submitted
+      ? "Message ready"
+      : "Send message";
+  const submitHint = submitted
+    ? directEmailEnabled
+      ? "Message sent successfully."
+      : "Your email app has a pre-filled draft ready to send."
+    : directEmailEnabled
+      ? "Sends directly and keeps your email address private."
+      : "Opens a pre-filled draft in your default email app.";
 
   const details = [
     { label: "Email", value: siteConfig.email, href: `mailto:${siteConfig.email}` },
@@ -135,15 +183,18 @@ export default function Contact() {
             </Field>
 
             <div className="flex flex-wrap items-center gap-4">
-              <Button type="submit" disabled={submitted}>
-                {submitted ? "Opened in Gmail" : "Compose in Gmail"}
+              <Button type="submit" disabled={submitted || isSubmitting}>
+                {submitLabel}
               </Button>
               <p className="text-sm text-ink-3" role="status">
-                {submitted
-                  ? "Your draft is open in a new tab. Press send there."
-                  : "Opens a pre-filled draft in Gmail."}
+                {submitHint}
               </p>
             </div>
+            {submitError && (
+              <p className="text-sm text-[#b4321f]" role="alert">
+                {submitError}
+              </p>
+            )}
           </form>
         </Reveal>
       </div>

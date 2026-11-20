@@ -8,6 +8,7 @@ export default function Seo({ title, description }) {
   const fullTitle = title ? `${title} | ${siteConfig.displayName}` : siteConfig.seo.title;
   const text = description || siteConfig.seo.description;
   const url = siteConfig.siteUrl.replace(/\/$/, "") + (pathname === "/" ? "/" : pathname);
+  const image = siteConfig.siteUrl.replace(/\/$/, "") + siteConfig.seo.image;
 
   return (
     <Helmet>
@@ -17,6 +18,13 @@ export default function Seo({ title, description }) {
       <meta property="og:title" content={fullTitle} />
       <meta property="og:description" content={text} />
       <meta property="og:url" content={url} />
+      <meta property="og:type" content="website" />
+      <meta property="og:image" content={image} />
+      <meta property="og:image:alt" content={`${siteConfig.displayName} — ${siteConfig.title}`} />
+      <meta name="twitter:card" content="summary_large_image" />
+      <meta name="twitter:title" content={fullTitle} />
+      <meta name="twitter:description" content={text} />
+      <meta name="twitter:image" content={image} />
     </Helmet>
   );
 }

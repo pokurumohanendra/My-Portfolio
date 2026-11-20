@@ -110,7 +110,7 @@ export default function Navbar() {
               size="sm"
               className="hidden sm:inline-flex"
             >
-              Résumé
+              Resume
             </Button>
 
             <button
@@ -142,7 +142,7 @@ export default function Navbar() {
             ))}
             <li className="pt-4">
               <Button href={siteConfig.resumeUrl} target="_blank" className="w-full">
-                Download résumé
+                Download Resume
               </Button>
             </li>
           </ul>

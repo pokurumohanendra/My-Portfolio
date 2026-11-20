@@ -63,14 +63,25 @@ export default function Experience() {
             </>
           }
         >
-          <h3 className="text-2xl text-ink">{item.role}</h3>
-          <p className="mt-1 text-ink-2">
+          <h3 className="text-2xl text-ink">
             {item.companyUrl ? (
               <ExternalLink href={item.companyUrl}>{item.company}</ExternalLink>
             ) : (
               item.company
             )}
-          </p>
+          </h3>
+          {item.roles?.length ? (
+            <ol className="mt-4 space-y-3 border-l border-line pl-4">
+              {item.roles.map((role) => (
+                <li key={`${role.title}-${role.duration}`}>
+                  <p className="font-medium text-ink">{role.title}</p>
+                  <p className="mt-0.5 font-mono text-xs text-ink-3">{role.duration}</p>
+                </li>
+              ))}
+            </ol>
+          ) : (
+            <p className="mt-1 text-ink-2">{item.role}</p>
+          )}
           {item.summary && <p className="mt-4 text-ink-2 max-w-2xl">{item.summary}</p>}
 
           <div className="mt-6 border-y border-line">

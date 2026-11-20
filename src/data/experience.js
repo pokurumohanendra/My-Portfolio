@@ -3,13 +3,16 @@
 export const experience = [
   {
     id: 1,
-    role: "Full Stack Developer Intern",
+    roles: [
+      { title: "Full Stack Developer", duration: "Nov 2026 – Present" },
+      { title: "Full Stack Developer Intern", duration: "Jul 2026 – Oct 2026" },
+    ],
     company: "NearEstate",
     companyUrl: "https://nearestate.in",
     location: "Hyderabad, India",
     duration: "Jul 2026 – Present",
     summary:
-      "Contributed to two production real-estate applications, working across frontend development, backend APIs, PostgreSQL, authentication, security, third-party integrations, and deployment.",
+      "Joined NearEstate as a Full Stack Developer Intern and transitioned to a full-time Full Stack Developer role in November 2026, continuing to contribute across frontend development, backend APIs, PostgreSQL, authentication, security, third-party integrations, and deployment for two production real-estate applications.",
     projects: [
       {
         name: "RealView360",
@@ -33,5 +36,6 @@ export const experience = [
           "Improved core CRM workflows including contact pagination, full-table search, CSV imports, follow-ups, password reset, and inbox-to-contact flows; contributed to production deployment using Docker and GitHub Actions.",
         ],
       },
-    ],  },
+    ],
+  },
 ];

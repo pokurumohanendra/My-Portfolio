@@ -8,7 +8,7 @@ import ProjectThumb from "../components/shared/ProjectThumb";
 import ArchitectureDiagram from "../components/shared/ArchitectureDiagram";
 import { projects } from "../data/projects";
 import { caseStudies } from "../data/caseStudies";
-import { repoLinks } from "../lib/projects";
+import { demoLinks, repoLinks } from "../lib/projects";
 
 function DetailBlock({ title, children }) {
   return (
@@ -46,6 +46,13 @@ export default function ProjectDetail() {
   const next = projects[(index + 1) % projects.length];
   const study = caseStudies[project.id];
   const repos = repoLinks(project);
+  const demos = demoLinks(project);
+  const projectContext = [
+    { label: "Role", value: project.role },
+    { label: "Scope", value: project.scope },
+    { label: "Team", value: project.team },
+    { label: "Source", value: project.sourceAccess },
+  ].filter((item) => item.value);
 
   const textSections = [
     { title: "Overview", content: project.description },
@@ -79,19 +86,30 @@ export default function ProjectDetail() {
           <p className="mt-5 text-xl text-ink-2 leading-relaxed">{project.shortDesc}</p>
 
           <div className="mt-8 flex flex-wrap gap-3">
-            {project.demo && (
-              <Button href={project.demo} target="_blank">
-                Visit live site <FaExternalLinkAlt size={11} aria-hidden="true" />
+            {demos.map((demo) => (
+              <Button key={demo.url} href={demo.url} target="_blank">
+                {demo.label} <FaExternalLinkAlt size={11} aria-hidden="true" />
               </Button>
-            )}
+            ))}
             {repos.map((r) => (
               <Button key={r.url} href={r.url} target="_blank" variant="line">
                 <FaGithub size={14} aria-hidden="true" /> {r.label}
               </Button>
             ))}
           </div>
-          {project.demo && project.demoNote && (
+          {demos.length > 0 && project.demoNote && (
             <p className="mt-3 text-sm text-ink-3">{project.demoNote}</p>
+          )}
+
+          {projectContext.length > 0 && (
+            <dl className="mt-8 grid gap-px overflow-hidden rounded-lg border border-line bg-line sm:grid-cols-2">
+              {projectContext.map((item) => (
+                <div key={item.label} className="bg-surface p-4">
+                  <dt className="eyebrow mb-1">{item.label}</dt>
+                  <dd className="text-sm leading-relaxed text-ink-2">{item.value}</dd>
+                </div>
+              ))}
+            </dl>
           )}
         </header>
 

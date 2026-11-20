@@ -112,6 +112,68 @@ export const caseStudies = {
     ],
   },
 
+  "guru-real-estate": {
+    architecture: {
+      stages: [
+        {
+          title: "Customer and admin UI",
+          nodes: [
+            { name: "Next.js 16 + React 19", note: "Listings, accounts, cases, and admin dashboard" },
+            { name: "Typed i18n", note: "English, Telugu, Hindi, and RTL Urdu" },
+            { name: "Progressive Web App", note: "Installable with an offline fallback" },
+          ],
+        },
+        {
+          title: "Serverless API",
+          nodes: [
+            { name: "Express 5 on AWS Lambda", note: "Auth, listings, enquiries, and case workflows" },
+            { name: "Zod + middleware", note: "Validation, authorization, Helmet, CORS, and rate limits" },
+          ],
+        },
+        {
+          title: "Data and identity",
+          external: true,
+          nodes: [
+            { name: "Supabase Auth", note: "Email or Indian mobile sign-in" },
+            { name: "PostgreSQL", note: "RLS enabled with no public table access" },
+          ],
+        },
+        {
+          title: "Private media",
+          external: true,
+          nodes: [
+            { name: "AWS S3", note: "Property photos and case documents" },
+            { name: "Signed document URLs", note: "Issued only after case access checks" },
+          ],
+        },
+      ],
+      caption:
+        "The Next.js website is deployed on Netlify; API Gateway fronts the Lambda API, and sensitive credentials remain server-side.",
+    },
+    decisions: [
+      {
+        title: "Keep the database behind the API",
+        detail:
+          "Database tables have row-level security enabled with no public access. The browser authenticates with Supabase, but all application data passes through the API, where identity and permissions are checked again.",
+      },
+      {
+        title: "Treat case documents as private data",
+        detail:
+          "The S3 bucket is private. A customer or administrator receives a short-lived document URL only after the API verifies that the signed-in user can access the associated case.",
+      },
+      {
+        title: "Build localization into the type system",
+        detail:
+          "Four translation dictionaries share typed keys, so missing content is caught during development; Urdu also switches the complete document direction to right-to-left.",
+      },
+      {
+        title: "Design one workflow for customers and operations",
+        detail:
+          "A service request creates a trackable case with the correct checklist. Customers see progress, updates, and documents in their dashboard while administrators manage the same workflow from the operational side.",
+      },
+    ],
+  },
+
   "classroom-management": {
     architecture: {
       stages: [
@@ -170,29 +232,54 @@ export const caseStudies = {
     architecture: {
       stages: [
         {
-          title: "Browser",
+          title: "Guest experience",
           nodes: [
-            { name: "React dashboard", note: "Reusable components" },
-            { name: "React Query", note: "Server-state caching" },
-            { name: "React Hook Form", note: "Validated forms" },
+            { name: "Next.js 14 App Router", note: "Server-rendered cabin and account pages" },
+            { name: "Auth.js + Google OAuth", note: "Protected guest account" },
+            { name: "Server actions", note: "Create, edit and cancel reservations" },
           ],
         },
         {
-          title: "Supabase",
+          title: "Staff operations",
+          nodes: [
+            { name: "React + Vite dashboard", note: "Cabins, bookings, check-in and check-out" },
+            { name: "TanStack Query", note: "Cached server state" },
+            { name: "React Hook Form", note: "Validated management forms" },
+          ],
+        },
+        {
+          title: "Shared Supabase backend",
           external: true,
-          nodes: [{ name: "Database and API", note: "Cabins, bookings, guests" }],
+          nodes: [
+            { name: "Database", note: "Cabins, bookings, guests and settings" },
+            { name: "Authentication" },
+            { name: "Storage", note: "Cabin images" },
+          ],
         },
       ],
+      caption:
+        "The customer and staff applications are separate repositories connected to the same hospitality data.",
     },
     decisions: [
       {
-        title: "React Query for server state",
+        title: "Separate customer and staff applications",
         detail:
-          "Cabins, bookings and guests are cached and kept in sync across views instead of being refetched by hand.",
+          "Guests receive a focused, server-rendered reservation experience while employees use a feature-based dashboard designed for daily operations.",
       },
       {
-        title: "Validated forms for every create and edit flow",
-        detail: "React Hook Form handles validation and error messages for forms with interdependent fields.",
+        title: "Check identity and ownership on every mutation",
+        detail:
+          "Reservation updates and deletions verify the signed-in guest and booking ownership before using the server-side Supabase client.",
+      },
+      {
+        title: "Revalidate customer routes after mutations",
+        detail:
+          "Booking server actions invalidate the affected Next.js paths so availability and account pages do not serve stale reservation data.",
+      },
+      {
+        title: "TanStack Query for staff server state",
+        detail:
+          "The admin dashboard caches cabins, bookings and operational data and keeps views in sync across CRUD and check-in workflows.",
       },
     ],
   },

@@ -21,3 +21,9 @@ export const repoLinks = (project) => {
   if (project.repos?.length) return project.repos;
   return project.github ? [{ label: "Source code", url: project.github }] : [];
 };
+
+/** Live application links: named demos for multi-app projects, otherwise the single demo URL. */
+export const demoLinks = (project) => {
+  if (project.demos?.length) return project.demos;
+  return project.demo ? [{ label: "Live site", url: project.demo }] : [];
+};

@@ -1,6 +1,6 @@
 // PROJECTS DATA — add new projects here as objects.
 //
-// type:       "Production" (shipped at work) or "Personal" (own projects)
+// type:       "Production" (shipped at work), "Freelance" (client work), or "Personal" (own projects)
 // category:   "fullstack" | "frontend" | "backend"
 // image:      optional screenshot in /public/projects (used as the thumbnail)
 // demoNote:   optional one-line hint shown under the live-site button
@@ -13,12 +13,17 @@
 export const projects = [
   {
     id: "realview360",
+    featured: true,
+    role: "Full Stack Developer",
+    scope: "Frontend, API integration, PostgreSQL-backed workflows, and deployment support",
+    team: "NearEstate product team",
+    sourceAccess: "Private production codebase",
     type: "Production",
     title: "RealView360",
     shortDesc:
       "A property discovery platform with SEO-optimized listings, 360° virtual tours, and integrated payments and messaging.",
     description:
-      "A production real-estate property discovery platform built at NearEstate. It combines server-rendered pages for SEO-sensitive property listings with interactive client components for search and 360° virtual tours, backed by an Express.js API and PostgreSQL.",
+      "A production real-estate property discovery platform built at NearEstate to help buyers and renters explore homes and neighborhoods before visiting them in person. The experience combines SEO-optimized, server-rendered property listings with fast locality search, detailed property information, and immersive 360° virtual tours. Behind the customer-facing interface, an Express.js API and PostgreSQL power authentication, property and lead management, billing, and subscriptions, while integrations with WhatsApp, Razorpay, Google Places, and S3-compatible storage support messaging, payments, location discovery, and media delivery.",
     problem:
       "Property listings need to rank well in search while still offering rich, interactive browsing (virtual tours, live search, filters) that traditional server-rendered sites struggle to deliver without hurting SEO or performance.",
     solution:
@@ -42,7 +47,9 @@ export const projects = [
       "Raw parameterized SQL across 5 domains",
     ],
     github: "",
-    demo: "",
+    image: "/projects/realview360.jpg",
+    demo: "https://nearestate.in/",
+    demoNote: "Explore the live NearEstate property-discovery experience.",
     challenges:
       "Balancing SEO-sensitive server rendering with interactive client-side features like virtual tours and live search, while keeping PostgreSQL access safe and consistent across authentication, billing, and subscription domains using raw parameterized SQL.",
     learnings:
@@ -53,12 +60,17 @@ export const projects = [
   },
   {
     id: "crm-nearestate",
+    featured: true,
+    role: "Full Stack Developer",
+    scope: "Multi-tenant migration, security hardening, messaging workflows, and deployment",
+    team: "NearEstate product team",
+    sourceAccess: "Private production codebase",
     type: "Production",
     title: "CRM.NearEstate",
     shortDesc:
       "A multi-tenant real estate CRM migrated from a single-tenant architecture, with tenant-scoped access across 34 PostgreSQL tables.",
     description:
-      "A multi-tenant SaaS CRM for real estate teams, migrated from a legacy single-tenant system. It enforces tenant-scoped access across 34 PostgreSQL tables and 24+ API modules, with WhatsApp Business Cloud API messaging and CRM workflows like contact management, CSV imports, and follow-ups.",
+      "A production multi-tenant SaaS CRM built for real estate teams to manage leads, contacts, conversations, property enquiries, and follow-up workflows from one secure workspace. Migrated from a legacy single-tenant system, it now enforces tenant-scoped access across 34 PostgreSQL tables and 24+ API modules so every business operates with isolated data and credentials. The platform also integrates the WhatsApp Business Cloud API for inbox messaging and broadcast campaigns, with webhook verification, tenant-specific credential resolution, pacing, automatic retries, CSV imports, and day-to-day CRM automation.",
     problem:
       "A single-tenant CRM couldn't serve multiple real estate businesses in isolation. It needed tenant-scoped data access, secure credential resolution per tenant, and hardened authentication before it could operate as a SaaS product.",
     solution:
@@ -71,13 +83,64 @@ export const projects = [
       "Production auth bypass found and fixed",
     ],
     github: "",
-    demo: "",
+    image: "/projects/crm-nearestate.png",
+    demo: "https://crm.nearestate.in/",
+    demoNote: "The production CRM opens at a secure sign-in screen and requires an authorized account.",
     challenges:
       "Retrofitting tenant isolation onto an existing single-tenant schema without breaking live workflows, and closing a production authentication bypass that risked cross-tenant data exposure.",
     learnings:
       "Multi-tenant SaaS architecture patterns, webhook signature verification, rate-limit-aware retry logic for messaging APIs, and production deployment with Docker and GitHub Actions.",
     futureImprovements:
       "Extend tenant-level analytics, add role-based permission granularity, and automate more of the CSV import validation pipeline.",
+    year: 2026,
+  },
+  {
+    id: "guru-real-estate",
+    featured: true,
+    role: "Freelance Full Stack Developer",
+    scope: "Product design, frontend, API, database, cloud storage, deployment, and maintenance",
+    team: "Independently delivered for a client",
+    sourceAccess: "Private client repository",
+    type: "Freelance",
+    title: "Guru Real Estate",
+    shortDesc:
+      "A multilingual property and documentation service with searchable listings, secure case tracking, and an admin publishing workflow.",
+    description:
+      "A production freelance platform built for a real-estate and property-documentation service in SPSR Nellore, Andhra Pradesh. Visitors can explore property listings, search by town, village, property type, and offering, save favourites, and request services such as sale-deed drafting, registration support, title verification, land-record work, loans, and valuation. Signed-in customers receive a dashboard for tracking each service case through checklists, updates, and private documents, while administrators manage listings, enquiries, announcements, welcome content, and case progress from a responsive operational workspace. The complete experience supports English, Telugu, Hindi, and right-to-left Urdu and is installable as a Progressive Web App.",
+    problem:
+      "The client needed more than a marketing site: local customers needed an accessible way to discover properties and request document or registration services, while the business needed one secure system for publishing listings and managing every customer case from enquiry to completion.",
+    solution:
+      "Designed and delivered a full-stack TypeScript system with a Next.js 16 and React 19 frontend, an Express 5 API packaged for AWS Lambda, Supabase authentication and PostgreSQL, and private AWS S3 storage. Built paginated property search and facets, email-or-mobile authentication, verified-admin authorization, a three-step listing wizard with image compression and previews, service-case checklists and messaging, private document uploads through signed URLs, multilingual and RTL interfaces, rate limiting, schema validation, SEO routes, and offline PWA support.",
+    techStack: [
+      "TypeScript",
+      "Next.js 16",
+      "React 19",
+      "Express 5",
+      "Supabase",
+      "PostgreSQL",
+      "AWS Lambda",
+      "AWS S3",
+      "Zod",
+      "Tailwind CSS",
+      "PWA",
+      "Netlify",
+    ],
+    category: "fullstack",
+    highlights: [
+      "4 languages with RTL Urdu support",
+      "839 villages across 35 mandals",
+      "Secure serverless case and document workflows",
+    ],
+    github: "",
+    image: "/projects/guru-real-estate.jpg",
+    demo: "https://gururealestateservice.netlify.app/",
+    demoNote: "Choose a language and accept the private-service notice to explore the live application.",
+    challenges:
+      "Turning several workflows—property discovery, multilingual content, authentication, service requests, case communication, and sensitive document handling—into one coherent mobile-first product. The security boundary also had to remain clear: public Supabase credentials handle login, but only the authenticated API can use the service role, access the database, or issue signed links for private S3 documents.",
+    learnings:
+      "Owning a client product end to end: translating business requirements into UX and data models, designing secure authorization and storage boundaries, building multilingual and RTL interfaces, packaging an Express API for Lambda, and deploying and maintaining a production Next.js application across Netlify, AWS, and Supabase.",
+    futureImprovements:
+      "Add automated end-to-end coverage for the customer and admin journeys, move hard global throttling fully to API Gateway, and extend operational reporting for enquiry sources, case turnaround times, and listing performance.",
     year: 2026,
   },
   {
@@ -123,26 +186,67 @@ export const projects = [
   },
   {
     id: "the-wild-oasis",
+    featured: true,
+    role: "Full Stack Developer",
+    scope: "Customer booking experience and staff operations dashboard",
+    team: "Personal two-application project",
+    sourceAccess: "Public source repositories",
     type: "Personal",
     title: "The Wild Oasis",
     shortDesc:
-      "A responsive hotel-management dashboard with CRUD workflows for cabins, bookings, and guests, backed by Supabase.",
+      "A two-app cabin reservation platform with a customer booking site and a staff operations dashboard sharing Supabase.",
     description:
-      "A hotel-management dashboard built with React, featuring reusable components and full CRUD workflows for cabins, bookings, and guests, with server-state caching via React Query and validated forms via React Hook Form.",
+      "A full-stack cabin reservation platform made of two connected applications. Guests use a server-rendered Next.js site to browse availability, authenticate with Google, create reservations, and manage bookings. Staff use a React dashboard to manage cabins and bookings, check guests in and out, review daily activity, and monitor sales and stay-duration analytics. Both applications share Supabase data and storage.",
     problem:
-      "Hotel staff need a fast, reliable internal tool to manage cabins, bookings, and guest records without juggling spreadsheets or a clunky admin panel.",
+      "A hospitality business needs a smooth guest booking experience and a separate operational workspace for staff, while keeping cabin availability, reservations, guest records, and settings consistent across both sides.",
     solution:
-      "Built a component-driven React dashboard with Supabase as the backend, using React Query for server-state caching and optimistic updates, and React Hook Form for validated create and edit forms across cabins, bookings, and guests.",
-    techStack: ["React", "React Query", "Supabase", "React Hook Form"],
+      "Built a Next.js 14 App Router customer site using React Server Components, Auth.js with Google OAuth, protected account routes, ownership-checked server actions, route revalidation, and availability-aware reservations. Paired it with a React and Vite staff dashboard using TanStack Query, React Hook Form, and Supabase for cabin CRUD, booking operations, check-in and check-out, settings, and analytics.",
+    techStack: [
+      "Next.js 14",
+      "React 18",
+      "Auth.js",
+      "Google OAuth",
+      "Supabase",
+      "TanStack Query",
+      "React Hook Form",
+      "Tailwind CSS",
+      "styled-components",
+    ],
     category: "fullstack",
-    github: "https://github.com/pokurumohanendra/The-World-Oasis",
-    demo: "",
+    highlights: [
+      "2 connected customer and staff applications",
+      "Google OAuth with protected guest accounts",
+      "Ownership-checked reservation mutations",
+    ],
+    repos: [
+      {
+        label: "Customer code",
+        url: "https://github.com/pokurumohanendra/The-World_Oasis-Custmer-Website",
+      },
+      {
+        label: "Admin code",
+        url: "https://github.com/pokurumohanendra/The-World-Oasis-Admin-Website",
+      },
+    ],
+    image: "/projects/the-wild-oasis.jpg",
+    demos: [
+      {
+        label: "Customer live",
+        url: "https://checkin-easisly-book-your-space-now.netlify.app/",
+      },
+      {
+        label: "Admin live",
+        url: "https://the-world-oasis-make-your-stay-here.netlify.app/",
+      },
+    ],
+    demoNote:
+      "Use the customer website to browse and reserve cabins, or open the admin app to see the staff operations experience.",
     challenges:
-      "Keeping server state in sync across CRUD operations and multiple views without over-fetching, while validating and handling errors gracefully in forms with interdependent fields.",
+      "Keeping availability and booking data consistent across two separate applications while protecting guest mutations. The customer site checks both authentication and booking ownership before updates or deletion, then revalidates affected routes so the guest and staff views receive fresh data.",
     learnings:
-      "Server-state management patterns with React Query, building reusable CRUD-oriented component architecture, and structuring a Supabase backend for a dashboard application.",
+      "Designing complementary customer and operational applications around a shared backend, applying server rendering and cache revalidation in Next.js, securing OAuth-backed server actions, and managing dashboard server state with TanStack Query.",
     futureImprovements:
-      "Add role-based staff accounts, a booking calendar view, and revenue analytics.",
+      "Separate anonymous and privileged Supabase clients, move all configuration into environment variables, add automated tests and CI, and deploy both applications with production OAuth callbacks.",
     year: 2026,
   },
   {

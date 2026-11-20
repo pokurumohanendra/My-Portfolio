@@ -57,9 +57,10 @@ function CopyEmail() {
 }
 
 const facts = [
-  { label: "Currently", value: "Full Stack Developer Intern, NearEstate" },
+  { label: "Currently", value: "Full Stack Developer, NearEstate" },
   { label: "Based in", value: siteConfig.location },
-  { label: "Works with", value: "Next.js, React, Node.js, PostgreSQL" },
+  { label: "Works with", value: "Next.js, React, Node.js, PostgreSQL, AWS" },
+  { label: "Career direction", value: "AI & Forward Deployed Engineering" },
 ];
 
 export default function Hero() {
@@ -100,10 +101,14 @@ export default function Hero() {
               {siteConfig.tagline}
             </motion.p>
 
+            <motion.p variants={fadeInUp} className="mt-3 max-w-xl text-sm leading-relaxed text-ink-3">
+              {siteConfig.careerDirection}
+            </motion.p>
+
             <motion.div variants={fadeInUp} className="mt-10 flex flex-wrap items-center gap-3">
               <Button onClick={() => goToSection("projects")}>View selected work</Button>
               <Button href={siteConfig.resumeUrl} download variant="line">
-                <FaDownload size={12} aria-hidden="true" /> Download résumé
+                <FaDownload size={12} aria-hidden="true" /> Download Resume
               </Button>
               <button onClick={() => goToSection("contact")} className="link text-sm px-2">
                 Get in touch

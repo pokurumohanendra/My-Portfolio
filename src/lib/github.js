@@ -10,19 +10,31 @@ export const githubUsername = () => {
 };
 
 /**
- * Public, non-fork, non-archived repositories, most recently pushed first.
- * Uses GitHub's unauthenticated REST API (60 requests/hour per visitor IP).
+ * Public, non-fork, non-archived repositories, most recently updated first.
+ * Uses the cached Netlify endpoint first and GitHub's public API as a fallback.
  */
 export async function fetchRepos(username, signal) {
-  const res = await fetch(
-    `https://api.github.com/users/${encodeURIComponent(username)}/repos?per_page=100&sort=pushed`,
-    { signal, headers: { Accept: "application/vnd.github+json" } },
-  );
-  if (!res.ok) throw new Error(`GitHub responded ${res.status}`);
-  const repos = await res.json();
+  const sources = [
+    "/.netlify/functions/github-repos",
+    `https://api.github.com/users/${encodeURIComponent(username)}/repos?per_page=100&sort=updated`,
+  ];
+  let repos;
+
+  for (const url of sources) {
+    try {
+      const res = await fetch(url, { signal, headers: { Accept: "application/vnd.github+json" } });
+      if (!res.ok) continue;
+      repos = await res.json();
+      if (Array.isArray(repos)) break;
+    } catch (error) {
+      if (signal?.aborted || (error instanceof Error && error.name === "AbortError")) throw error;
+    }
+  }
+
+  if (!Array.isArray(repos)) throw new Error("GitHub activity is unavailable");
   return repos
     .filter((r) => !r.fork && !r.archived)
-    .sort((a, b) => new Date(b.pushed_at) - new Date(a.pushed_at));
+    .sort((a, b) => new Date(b.updated_at) - new Date(a.updated_at));
 }
 
 const relativeFormat = new Intl.RelativeTimeFormat("en", { numeric: "auto" });

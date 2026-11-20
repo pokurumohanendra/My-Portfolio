@@ -22,8 +22,9 @@ export const skillCategories = [
     skills: [
       { name: "Node.js" },
       { name: "Express.js" },
+      { name: "Zod" },
       { name: "REST APIs", match: "rest api" },
-      { name: "JWT / Auth", match: null },
+      { name: "Supabase Auth", match: "supabase" },
     ],
   },
   {
@@ -42,7 +43,7 @@ export const skillCategories = [
       { name: "Authentication & Authorization", match: "authentication" },
       { name: "Multi-Tenant Isolation", match: "multi-tenant" },
       { name: "Webhook Signature Verification", match: "webhook" },
-      { name: "bcrypt", match: null },
+      { name: "Private S3 Storage", match: "s3" },
     ],
   },
   {
@@ -51,9 +52,12 @@ export const skillCategories = [
     skills: [
       { name: "Docker" },
       { name: "GitHub Actions" },
+      { name: "AWS Lambda", match: "lambda" },
+      { name: "AWS S3", match: "s3" },
+      { name: "Netlify" },
+      { name: "PWA" },
       { name: "Git", match: null },
       { name: "GitHub", match: null },
-      { name: "Postman", match: null },
       { name: "Razorpay" },
       { name: "WhatsApp Business API", match: "whatsapp" },
     ],
@@ -62,8 +66,8 @@ export const skillCategories = [
 
 // CURRENTLY LEARNING
 export const learningNow = [
-  { name: "AWS" },
+  { name: "AI application engineering" },
+  { name: "LLM integrations" },
+  { name: "Forward Deployed Engineering" },
   { name: "Redis" },
-  { name: "GraphQL" },
-  { name: "Kubernetes" },
 ];

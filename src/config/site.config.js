@@ -3,7 +3,10 @@
 export const siteConfig = {
   displayName: "Pokuru Mohanendra",
   title: "Full Stack Developer",
-  tagline: "Building production SaaS applications with React, Next.js, Node.js, and PostgreSQL.",
+  tagline:
+    "Building secure SaaS platforms, customer products, and operational tools with React, Next.js, Node.js, PostgreSQL, and AWS.",
+  careerDirection:
+    "Growing toward AI and Forward Deployed Engineering by combining full-stack delivery with customer-facing problem solving.",
   location: "Hyderabad, India",
   email: "mohanendra.pokuru@gmail.com",
   siteUrl: "https://mohanendra-pokuru-portfolio-website.netlify.app",
@@ -25,5 +28,6 @@ export const siteConfig = {
     title: "Pokuru Mohanendra | Full Stack Developer",
     description:
       "Portfolio of a Full Stack Developer specializing in React, Next.js, Node.js, Express, and PostgreSQL, with production experience building real-estate SaaS applications.",
+    image: "/og-image-v2.jpg",
   },
 };
